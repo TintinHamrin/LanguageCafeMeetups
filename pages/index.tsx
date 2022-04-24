@@ -1,0 +1,133 @@
+import * as React from "react";
+import Image from "next/image";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { Typography } from "@mui/material";
+import classes from "./index.module.css";
+import { useRouter } from "next/router";
+
+if (process.browser) {
+  const parallax = document.getElementById("id");
+  window.addEventListener("scroll", () => {
+    let offset = window.pageYOffset;
+    parallax.style.backgroundPositionY = offset * 0.2 + "px";
+  });
+}
+
+if (process.browser) {
+  const parallax = document.getElementById("id2");
+  window.addEventListener("scroll", () => {
+    console.log(window.pageYOffset);
+    let offset = window.pageYOffset + 5000;
+    //let offset = window.pageYOffset + 2800;
+    parallax.style.backgroundPositionY = offset * 0.7 + "px";
+  });
+}
+
+export default function BasicSelect(props) {
+  const router = useRouter();
+
+  const handleChange = (event: SelectChangeEvent) => {
+    console.log(event.target.value);
+    router.push("/cities/" + event.target.value);
+  };
+
+  return (
+    <>
+      <Box sx={{ minWidth: 120 }}>
+        <Typography variant="h5" textAlign="center">
+          Select your city
+        </Typography>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">City</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={""}
+            label="City"
+            onChange={handleChange}
+          >
+            <MenuItem value={"new york"}>New York</MenuItem>
+            <MenuItem value={"miami"}>Miami</MenuItem>
+            <MenuItem value={"colorado"}>Colorado</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <div id="id" className={classes.wrapper}>
+        <Box className={classes.boxDiv}>
+          <Typography
+            className={classes.textDiv}
+            variant="body1"
+            textAlign="center"
+            sx={{ margin: "3rem" }}
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio vel
+            dolore pariatur expedita quod explicabo ipsam assumenda, asperiores
+            accusamus nihil laborum mollitia impedit fugiat consequuntur odio
+            magnam velit delectus sapiente quibusdam atque id vero repudiandae
+            architecto itaque!
+          </Typography>
+        </Box>
+      </div>
+      <div id="id" className={classes.wrapper}>
+        <Box className={classes.boxDiv}>
+          <Typography
+            className={classes.textDiv}
+            variant="body1"
+            textAlign="center"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio vel
+            dolore pariatur expedita quod explicabo ipsam assumenda, asperiores
+            accusamus nihil laborum mollitia impedit fugiat consequuntur odio
+            magnam velit delectus sapiente quibusdam atque id vero repudiandae
+            architecto itaque!
+          </Typography>
+        </Box>
+      </div>
+      <div id="id" className={classes.wrapper}>
+        <Box className={classes.boxDiv}>
+          <Typography
+            className={classes.textDiv}
+            variant="body1"
+            textAlign="center"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio vel
+            dolore pariatur expedita quod explicabo ipsam assumenda, asperiores
+            accusamus nihil laborum mollitia impedit fugiat consequuntur odio
+            magnam velit delectus sapiente quibusdam atque id vero repudiandae
+            architecto itaque!
+          </Typography>
+        </Box>
+      </div>
+      <div className={classes.wrapper}>
+        <Box className={classes.smallBoxDiv}>
+          <Typography
+            className={classes.textDiv}
+            variant="h3"
+            textAlign="center"
+          >
+            Keep discovering and learning...
+          </Typography>
+        </Box>
+      </div>
+      <div id="id2" className={classes.wrapper}>
+        <Box className={classes.boxDiv}>
+          <Typography
+            className={classes.textDiv}
+            variant="body1"
+            textAlign="center"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio vel
+            dolore pariatur expedita quod explicabo ipsam assumenda, asperiores
+            accusamus nihil laborum mollitia impedit fugiat consequuntur odio
+            magnam velit delectus sapiente quibusdam atque id vero repudiandae
+            architecto itaque!
+          </Typography>
+        </Box>
+      </div>
+    </>
+  );
+}

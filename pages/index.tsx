@@ -41,7 +41,7 @@ export default function BasicSelect(props) {
         <Typography variant="h5" textAlign="center">
           Select your city
         </Typography>
-        <FormControl fullWidth>
+        <FormControl>
           <InputLabel id="demo-simple-select-label">City</InputLabel>
           <Select
             labelId="demo-simple-select-label"

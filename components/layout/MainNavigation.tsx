@@ -14,10 +14,10 @@ import MenuItem from "@mui/material/MenuItem";
 import EmojiFlagsIcon from "@mui/icons-material/EmojiFlags";
 import classes from "./MainNavigation.module.css";
 import Link from "next/link";
-
-const pages = ["About Language Cafes", "Meetups", "Add a Meetup"];
+import { useRouter } from "next/router";
 
 const MainNavigation = () => {
+  const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -40,6 +40,10 @@ const MainNavigation = () => {
     setAnchorElUser(null);
   };
 
+  const routerHandler = (path: string) => {
+    router.push(`/${path}`);
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -49,7 +53,7 @@ const MainNavigation = () => {
             aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
-            onClick={handleOpenNavMenu}
+            onClick={(evt) => routerHandler("")}
             color="inherit"
           >
             <EmojiFlagsIcon />
@@ -84,11 +88,15 @@ const MainNavigation = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key={1} onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">About Language Cafes</Typography>
+              </MenuItem>
+              <MenuItem key={2} onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">All Meetups</Typography>
+              </MenuItem>
+              <MenuItem key={3} onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">Add a Meetup</Typography>
+              </MenuItem>
             </Menu>
           </Box>
 
@@ -96,15 +104,27 @@ const MainNavigation = () => {
             className={classes.appbarItems}
             sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
           >
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              key={1}
+              onClick={(evt) => routerHandler("add-meetup")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              About Language Cafes
+            </Button>
+            <Button
+              key={2}
+              sx={{ my: 2, color: "white", display: "block" }}
+              onClick={(evt) => routerHandler("meetups")}
+            >
+              All Meetups
+            </Button>
+            <Button
+              key={3}
+              sx={{ my: 2, color: "white", display: "block" }}
+              onClick={(evt) => routerHandler("add-meetup")}
+            >
+              Add a Meetup
+            </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

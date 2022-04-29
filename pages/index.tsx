@@ -9,23 +9,21 @@ import { Typography } from "@mui/material";
 import classes from "./index.module.css";
 import { useRouter } from "next/router";
 
-if (process.browser) {
-  const parallax = document.getElementById("id");
-  window.addEventListener("scroll", () => {
-    let offset = window.pageYOffset;
-    parallax.style.backgroundPositionY = offset * 0.2 + "px";
-  });
-}
+// if (process.browser) {
+//   const parallax = document.getElementById("id");
+//   window.addEventListener("scroll", () => {
+//     let offset = window.pageYOffset;
+//     parallax.style.backgroundPositionY = offset * 0.2 + "px";
+//   });
+// }
 
-if (process.browser) {
-  const parallax = document.getElementById("id2");
-  window.addEventListener("scroll", () => {
-    console.log(window.pageYOffset);
-    let offset = window.pageYOffset + 5000;
-    //let offset = window.pageYOffset + 2800;
-    parallax.style.backgroundPositionY = offset * 0.7 + "px";
-  });
-}
+// if (process.browser) {
+//   const parallax = document.getElementById("id2");
+//   window.addEventListener("scroll", () => {
+//     let offset = window.pageYOffset + 5000;
+//     parallax.style.backgroundPositionY = offset * 0.7 + "px";
+//   });
+// }
 
 export default function BasicSelect(props) {
   const router = useRouter();
@@ -35,13 +33,21 @@ export default function BasicSelect(props) {
     router.push("/cities/" + event.target.value);
   };
 
+  const x = async () => {
+    const x = await fetch("/api/new-meetup", {
+      method: "POST",
+    });
+    const res = x.json();
+    console.log(res);
+  };
+
   return (
     <>
       <Box sx={{ minWidth: 120 }}>
         <Typography variant="h5" textAlign="center">
           Select your city
         </Typography>
-        <FormControl>
+        <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">City</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -55,7 +61,9 @@ export default function BasicSelect(props) {
             <MenuItem value={"colorado"}>Colorado</MenuItem>
           </Select>
         </FormControl>
+        <button onClick={x}>fetch</button>
       </Box>
+
       <div id="id" className={classes.wrapper}>
         <Box className={classes.boxDiv}>
           <Typography

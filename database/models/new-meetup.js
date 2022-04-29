@@ -1,14 +1,16 @@
 import mongoose from "mongoose";
 
-delete mongoose.models["Meetuk`"];
-
 const meetupSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: "string",
     required: true,
   },
-  age: {
-    type: "number",
+  location: {
+    type: "string",
+    required: true,
+  },
+  description: {
+    type: "string",
     required: true,
   },
 });

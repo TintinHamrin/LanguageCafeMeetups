@@ -16,14 +16,14 @@ const theme = createTheme({
     default: "#f28482",
   },
   typography: {
-    fontFamily: "'Tapestry', cursive",
+    fontFamily: "'Montserrat', 'sans-serif'",
   },
 });
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, props }) {
   return (
     <ThemeProvider theme={theme}>
-      <Layout>
+      <Layout p={props}>
         <Component {...pageProps} />
       </Layout>
     </ThemeProvider>
@@ -31,3 +31,20 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+
+export async function getStaticProps() {
+  console.log("in app");
+  const res = await Meetup.find({});
+  console.log(res);
+
+  return {
+    props: {
+      meetups: res.map((field) => ({
+        title: field.title,
+        language: field.language,
+        location: field.location,
+        description: field.description,
+      })),
+    },
+  };
+}

@@ -10,14 +10,7 @@ export default function MultilineTextFields() {
   };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}
-      noValidate
-      autoComplete="off"
-    >
+    <Box component="form" noValidate autoComplete="off">
       <div>
         <TextField
           id="filled-multiline-flexible"

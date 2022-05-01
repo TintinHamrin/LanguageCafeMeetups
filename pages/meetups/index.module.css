@@ -1,0 +1,33 @@
+.body {
+  background-image: url(../../public/images/bg.jpeg);
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+}
+
+.cardContainer {
+  justify-content: space-around;
+  max-width: 80%;
+}
+
+.card {
+  height: 500px;
+  background-image: url("../../public/images/cafe.jpeg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.cardContent {
+  background-color: rgba(248, 228, 221, 0.95);
+  height: 50%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}

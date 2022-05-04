@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 
 interface MeetupData {
-  title: string;
   location: string;
   description: string;
   language: string;
@@ -22,7 +21,6 @@ interface MeetupData {
 }
 
 export default function MultilineTextFields() {
-  const [title, setTitle] = React.useState();
   const [location, setLocation] = React.useState();
   const [description, setDescription] = React.useState();
   const [language, setLanguage] = React.useState("");
@@ -30,10 +28,6 @@ export default function MultilineTextFields() {
   let meetupData: MeetupData;
 
   //const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const handleTitleChange = (event: any) => {
-    setTitle(event.target.value);
-  };
-
   const handleLocationChange = (event: any) => {
     setLocation(event.target.value);
   };
@@ -53,7 +47,6 @@ export default function MultilineTextFields() {
   const onSubmitHandler = async () => {
     //TODO refactor
     meetupData = {
-      title: title,
       location: location,
       description: description,
       language: language,
@@ -63,6 +56,7 @@ export default function MultilineTextFields() {
   };
 
   const saveToDb = async () => {
+    console.log("saving data");
     console.log(meetupData);
     const data = await fetch("/api/new-meetup", {
       method: "POST",
@@ -88,14 +82,6 @@ export default function MultilineTextFields() {
             <Typography variant="h4" sx={{ mb: "15px" }}>
               Add your language Meetup!
             </Typography>
-            <TextField
-              fullWidth
-              id="outlined-multiline-flexible"
-              label="Title of Event"
-              multiline
-              maxRows={4}
-              onChange={(event) => handleTitleChange(event)}
-            />
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Language</InputLabel>
               <Select
@@ -137,6 +123,7 @@ export default function MultilineTextFields() {
               id="outlined-multiline-static"
               label="Description"
               onChange={(event) => handleDescriptionChange(event)}
+              rows={5}
             />
             <Button fullWidth variant="contained" onClick={onSubmitHandler}>
               Submit

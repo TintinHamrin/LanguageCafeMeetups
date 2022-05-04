@@ -1,10 +1,8 @@
 import mongoose from "mongoose";
 
+delete mongoose.connection.models["Meetup"];
+
 const meetupSchema = new mongoose.Schema({
-  title: {
-    type: "string",
-    required: true,
-  },
   location: {
     type: "string",
     required: true,

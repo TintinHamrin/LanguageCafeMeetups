@@ -8,6 +8,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Typography } from "@mui/material";
 import classes from "./index.module.css";
 import { useRouter } from "next/router";
+import { propsToClassKey } from "@mui/styles";
 
 // if (process.browser) {
 //   const parallax = document.getElementById("id");
@@ -33,35 +34,20 @@ export default function BasicSelect(props) {
     router.push("/cities/" + event.target.value);
   };
 
-  const x = async () => {
-    const x = await fetch("/api/new-meetup", {
-      method: "POST",
-    });
-    const res = x.json();
-    console.log(res);
-  };
-
   return (
     <>
-      <Box sx={{ minWidth: 120 }}>
+      <Box className={classes.selectionDiv}>
         <Typography variant="h5" textAlign="center">
           Select your city
         </Typography>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">City</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={""}
-            label="City"
-            onChange={handleChange}
-          >
+        <FormControl className="classes.formControl">
+          <InputLabel>City</InputLabel>
+          <Select value={""} label="City" onChange={handleChange}>
             <MenuItem value={"new york"}>New York</MenuItem>
             <MenuItem value={"miami"}>Miami</MenuItem>
             <MenuItem value={"colorado"}>Colorado</MenuItem>
           </Select>
         </FormControl>
-        <button onClick={x}>fetch</button>
       </Box>
 
       <div id="id" className={classes.wrapper}>

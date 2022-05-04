@@ -4,7 +4,14 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@mui/material";
 import classes from "./index.module.css";
 import connect from "../../database/connection";
 
@@ -22,10 +29,17 @@ export default function BasicGrid(props) {
             <Grid item xs={12} sm={6}>
               <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
-                  <Typography>{meetup.title}</Typography>
-                  <Typography>{meetup.language}</Typography>
-                  <Typography>{meetup.location}</Typography>
-                  <Typography>{meetup.description}</Typography>
+                  <Typography variant="body2">
+                    Language: {meetup.language}
+                  </Typography>
+                  <Typography variant="body2">City: {meetup.city}</Typography>
+                  <Typography variant="body2">
+                    Adress: {meetup.location}
+                  </Typography>
+                  <Typography variant="body2">{meetup.description}</Typography>
+                  <CardActions>
+                    <Button size="small">Learn More & Register</Button>
+                  </CardActions>
                 </CardContent>
               </Card>
             </Grid>
@@ -45,10 +59,10 @@ export async function getStaticProps() {
   return {
     props: {
       meetups: res.map((field) => ({
-        title: field.title,
         language: field.language,
         location: field.location,
         description: field.description,
+        city: field.city,
       })),
     },
   };

@@ -2,6 +2,8 @@ import React from "react";
 import { useRouter } from "next/router";
 import connect from "../../../database/connection";
 import Meetup from "../../../database/models/new-meetup";
+import MeetupCard from "../../../components/ui/MeetupCard";
+import MeetupBox from "../../../components/ui/MeetupBox";
 
 function City(props) {
   const router = useRouter();
@@ -10,7 +12,15 @@ function City(props) {
 
   return (
     <>
-      <div>in dynamic city {props.meetups[0].language}</div>
+      <MeetupBox>
+        {props.meetups.map((meetup) => (
+          <MeetupCard
+            language={meetup.language}
+            description={meetup.description}
+            location={meetup.location}
+          />
+        ))}
+      </MeetupBox>
     </>
   );
 }

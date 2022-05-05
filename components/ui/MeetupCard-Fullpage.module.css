@@ -1,0 +1,11 @@
+.body {
+  background-image: url(../../public/images/cafe.jpeg);
+  background-size: cover;
+  height: 100vh;
+}
+
+.card {
+  background-color: bisque;
+  width: 40vw;
+  height: 40vh;
+}

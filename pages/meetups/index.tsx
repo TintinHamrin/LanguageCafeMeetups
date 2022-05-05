@@ -11,14 +11,13 @@ export default function Index(props) {
     <>
       <MeetupBox>
         {props.meetups.map((meetup) => (
-          <Grid item xs={12} sm={6}>
-            <MeetupCard
-              language={meetup.language}
-              city={meetup.city}
-              description={meetup.description}
-              location={meetup.location}
-            />
-          </Grid>
+          <MeetupCard
+            language={meetup.language}
+            city={meetup.city}
+            description={meetup.description}
+            location={meetup.location}
+            id={meetup.id}
+          />
         ))}
       </MeetupBox>
     </>
@@ -38,6 +37,7 @@ export async function getStaticProps() {
         location: field.location,
         description: field.description,
         city: field.city,
+        id: field._id.toString(),
       })),
     },
   };

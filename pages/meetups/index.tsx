@@ -1,52 +1,27 @@
 import Meetup from "../../database/models/new-meetup";
 import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
-import classes from "./index.module.css";
 import connect from "../../database/connection";
+import MeetupCard from "../../components/ui/MeetupCard";
+import classes from "./index.module.css";
+import { Box, Grid } from "@mui/material";
+import MeetupBox from "../../components/ui/MeetupBox";
 
-export default function BasicGrid(props) {
+export default function Index(props) {
   return (
-    <div className={classes.body}>
-      <Box sx={{ flexGrow: 1 }} className={classes.box}>
-        <Grid
-          className={classes.cardContainer}
-          container
-          rowSpacing={5}
-          columnSpacing={5}
-        >
-          {props.meetups.map((meetup) => (
-            <Grid item xs={12} sm={6}>
-              <Card className={classes.card}>
-                <CardContent className={classes.cardContent}>
-                  <Typography variant="body2">
-                    Language: {meetup.language}
-                  </Typography>
-                  <Typography variant="body2">City: {meetup.city}</Typography>
-                  <Typography variant="body2">
-                    Adress: {meetup.location}
-                  </Typography>
-                  <Typography variant="body2">{meetup.description}</Typography>
-                  <CardActions>
-                    <Button size="small">Learn More & Register</Button>
-                  </CardActions>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-    </div>
+    <>
+      <MeetupBox>
+        {props.meetups.map((meetup) => (
+          <Grid item xs={12} sm={6}>
+            <MeetupCard
+              language={meetup.language}
+              city={meetup.city}
+              description={meetup.description}
+              location={meetup.location}
+            />
+          </Grid>
+        ))}
+      </MeetupBox>
+    </>
   );
 }
 

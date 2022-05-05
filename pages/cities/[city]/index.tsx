@@ -26,11 +26,11 @@ export async function getStaticPaths() {
           city: "miami",
         },
       },
-      {
-        params: {
-          city: "newyork",
-        },
-      },
+      // {
+      //   params: {
+      //     city: "newyork",
+      //   },
+      // },
 
       {
         params: {

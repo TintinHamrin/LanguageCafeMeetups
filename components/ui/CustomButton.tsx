@@ -5,11 +5,7 @@ import classes from "./Button.module.css";
 
 function CustomButton(props) {
   return (
-    <Button
-      className={classes.button}
-      size="small"
-      onClick={props.submitHandler}
-    >
+    <Button className={classes.button} size="small" onClick={props.onClick}>
       {props.children}
     </Button>
   );

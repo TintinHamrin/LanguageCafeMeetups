@@ -28,7 +28,7 @@ function MeetupCard(props) {
           <Typography variant="body2">City: {props.city}</Typography>
 
           <CardActions>
-            <CustomButton submitHandler={openMeetupHandler}>
+            <CustomButton onClick={openMeetupHandler}>
               Learn More & Register
             </CustomButton>
           </CardActions>

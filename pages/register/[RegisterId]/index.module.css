@@ -1,5 +1,5 @@
 .body {
-  background-image: url(../../public/images/paris.jpeg);
+  background-image: url(../../../public/images/paris.jpeg);
   background-size: cover;
   height: 100vh;
   display: flex;

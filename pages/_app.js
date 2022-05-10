@@ -18,6 +18,13 @@ const theme = createTheme({
   typography: {
     fontFamily: "'Montserrat', 'sans-serif'",
   },
+  breakpoints: {
+    values: {
+      xs: 820,
+      sm: 821,
+      md: 900,
+    },
+  },
 });
 
 function MyApp({ Component, pageProps, props }) {

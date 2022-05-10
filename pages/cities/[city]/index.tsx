@@ -12,12 +12,13 @@ function City(props) {
 
   return (
     <>
-      <MeetupBox>
+      <MeetupBox city={city}>
         {props.meetups.map((meetup) => (
           <MeetupCard
             language={meetup.language}
             description={meetup.description}
             location={meetup.location}
+            id={meetup.id}
           />
         ))}
       </MeetupBox>
@@ -67,6 +68,7 @@ export async function getStaticProps(context) {
         language: city.language,
         description: city.description,
         location: city.location,
+        id: city._id.toString(),
       })),
     },
   };

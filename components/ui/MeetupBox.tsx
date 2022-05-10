@@ -1,10 +1,13 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
 import classes from "./MeetupBox.module.css";
 
-function MeetupBox({ children }) {
+function MeetupBox({ children, city }) {
   return (
     <div className={classes.body}>
+      <Typography className={classes.header} variant="overline">
+        Meetups in <span> {city}</span>
+      </Typography>
       <Box sx={{ flexGrow: 1 }} className={classes.box}>
         <Grid
           className={classes.cardContainer}

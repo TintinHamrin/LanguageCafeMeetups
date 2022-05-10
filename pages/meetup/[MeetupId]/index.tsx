@@ -6,21 +6,17 @@ import connect from "../../../database/connection";
 import Meetup from "../../../database/models/new-meetup";
 
 function index(props) {
-  console.log(props);
   return (
     <>
-      <MeetupCardFullpage />
-      {/* <MeetupBox>
-        {props.meetup.map((meetup) => (
-          <MeetupCard
-            language={meetup.language}
-            city={meetup.city}
-            description={meetup.description}
-            location={meetup.location}
-            id={meetup.id}
-          />
-        ))}
-      </MeetupBox> */}
+      {props.meetup.map((meetup) => (
+        <MeetupCardFullpage
+          language={meetup.language}
+          city={meetup.city}
+          description={meetup.description}
+          location={meetup.location}
+          id={meetup.id}
+        />
+      ))}
     </>
   );
 }
@@ -47,7 +43,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const param = context.params.MeetupId;
-  console.log(param);
+  console.log("param", param);
   connect();
 
   const result = await Meetup.find({ _id: param });

@@ -1,6 +1,20 @@
 .body {
   background-image: url(../../public/images/bg.jpeg);
   height: 100vh;
+  text-align: center;
+}
+
+.header {
+  background-color: #f6bd60;
+  color: #fff;
+  font-size: 1.5em;
+  margin-top: 5rem;
+}
+
+.header span {
+  background-color: #fff;
+  color: #f6bd60;
+  padding: auto 2rem;
 }
 
 .box {

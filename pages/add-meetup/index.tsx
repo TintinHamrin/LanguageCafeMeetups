@@ -15,13 +15,14 @@ import {
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DateTimePicker } from "@mui/x-date-pickers";
 
 interface MeetupData {
   location: string;
   description: string;
   language: string;
   city: string;
-  date: string;
+  date: Date;
 }
 
 export default function MultilineTextFields() {
@@ -56,7 +57,7 @@ export default function MultilineTextFields() {
       description: description,
       language: language,
       city: city,
-      date: date.toUTCString(),
+      date: date,
     };
     console.log("d", date.toUTCString());
     saveToDb();
@@ -90,7 +91,7 @@ export default function MultilineTextFields() {
               Add your language Meetup!
             </Typography>
 
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
+            {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 label="Date"
                 value={date}
@@ -100,6 +101,19 @@ export default function MultilineTextFields() {
                 renderInput={(params) => (
                   <TextField className={classes.datePicker} {...params} />
                 )}
+              />
+            </LocalizationProvider> */}
+
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                renderInput={(props) => (
+                  <TextField className={classes.datePicker} {...props} />
+                )}
+                label="Date and time"
+                value={date}
+                onChange={(newValue) => {
+                  setDate(newValue);
+                }}
               />
             </LocalizationProvider>
 

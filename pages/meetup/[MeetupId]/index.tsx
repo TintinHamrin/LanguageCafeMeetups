@@ -25,13 +25,14 @@ function index(props) {
 
   return (
     <>
-      {props.meetup.map((meetup, attending) => (
+      {props.meetup.map((meetup) => (
         <MeetupCardFullpage
           language={meetup.language}
           city={meetup.city}
           description={meetup.description}
           location={meetup.location}
           id={meetup.id}
+          date={meetup.date}
           attendees={attendees}
         />
       ))}
@@ -76,6 +77,7 @@ export async function getStaticProps(context) {
         location: meetup.location,
         description: meetup.description,
         language: meetup.language,
+        date: meetup.date.toString(),
       })),
       attending: attendingResult.map((attending) => ({
         name: attending.name,

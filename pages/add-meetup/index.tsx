@@ -12,12 +12,16 @@ import {
   Select,
   Typography,
 } from "@mui/material";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 interface MeetupData {
   location: string;
   description: string;
   language: string;
   city: string;
+  date: string;
 }
 
 export default function MultilineTextFields() {
@@ -25,6 +29,7 @@ export default function MultilineTextFields() {
   const [description, setDescription] = React.useState();
   const [language, setLanguage] = React.useState("");
   const [city, setCity] = React.useState("");
+  const [date, setDate] = React.useState<Date | null>(null);
   let meetupData: MeetupData;
 
   //const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +56,9 @@ export default function MultilineTextFields() {
       description: description,
       language: language,
       city: city,
+      date: date.toUTCString(),
     };
+    console.log("d", date.toUTCString());
     saveToDb();
   };
 
@@ -82,6 +89,20 @@ export default function MultilineTextFields() {
             <Typography variant="h4" sx={{ mb: "15px" }}>
               Add your language Meetup!
             </Typography>
+
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Date"
+                value={date}
+                onChange={(newDate) => {
+                  setDate(newDate);
+                }}
+                renderInput={(params) => (
+                  <TextField className={classes.datePicker} {...params} />
+                )}
+              />
+            </LocalizationProvider>
+
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Language</InputLabel>
               <Select
@@ -117,6 +138,7 @@ export default function MultilineTextFields() {
               placeholder="Placeholder"
               onChange={(event) => handleLocationChange(event)}
             />
+
             <TextField
               fullWidth
               multiline

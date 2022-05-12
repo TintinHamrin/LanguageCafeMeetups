@@ -6,10 +6,11 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     connect();
     const data = req.body;
-    const { title, location, description, language, city } = data;
+    const { title, date, location, description, language, city } = data;
 
     const dbEntry = await Meetup.create({
-      title: title,
+      //title: title,
+      date: date,
       location: location,
       description: description,
       language: language,

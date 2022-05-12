@@ -19,3 +19,7 @@
   margin-top: 2rem;
   background-color: rgba(248, 228, 221, 0.95);
 }
+
+.datePicker {
+  width: 100%;
+}

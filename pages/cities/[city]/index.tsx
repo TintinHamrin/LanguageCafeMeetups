@@ -19,6 +19,7 @@ function City(props) {
             description={meetup.description}
             location={meetup.location}
             id={meetup.id}
+            city={city}
           />
         ))}
       </MeetupBox>

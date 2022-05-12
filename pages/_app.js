@@ -1,6 +1,8 @@
 import "../styles/globals.css";
 import Layout from "../components/layout/Layout";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Provider } from "react-redux";
+import { store } from "../store/configStore";
 
 const theme = createTheme({
   palette: {
@@ -29,11 +31,13 @@ const theme = createTheme({
 
 function MyApp({ Component, pageProps, props }) {
   return (
-    <ThemeProvider theme={theme}>
-      <Layout p={props}>
-        <Component {...pageProps} />
-      </Layout>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Layout p={props}>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

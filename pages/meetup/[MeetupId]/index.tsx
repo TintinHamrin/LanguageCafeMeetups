@@ -1,20 +1,38 @@
-import React from "react";
+import { convertLength } from "@mui/material/styles/cssUtils";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import MeetupBox from "../../../components/ui/MeetupBox";
 import MeetupCard from "../../../components/ui/MeetupCard";
 import MeetupCardFullpage from "../../../components/ui/MeetupCard-Fullpage";
 import connect from "../../../database/connection";
 import Meetup from "../../../database/models/new-meetup";
+import Register from "../../../database/models/registering";
+import { getAttendees } from "../../../store/attendingSlice";
 
 function index(props) {
+  const [attendees, setAttendees] = useState({});
+  const dispatch = useDispatch();
+
+  // props.attending.map((attending) => {
+  //   dispatch(getAttendees([]));
+  //   dispatch(getAttendees(attending.name));
+  //   console.log("index", attending.name);
+  // });
+
+  useEffect(() => {
+    setAttendees(props.attending);
+  }, []);
+
   return (
     <>
-      {props.meetup.map((meetup) => (
+      {props.meetup.map((meetup, attending) => (
         <MeetupCardFullpage
           language={meetup.language}
           city={meetup.city}
           description={meetup.description}
           location={meetup.location}
           id={meetup.id}
+          attendees={attendees}
         />
       ))}
     </>
@@ -46,16 +64,23 @@ export async function getStaticProps(context) {
   console.log("param", param);
   connect();
 
-  const result = await Meetup.find({ _id: param });
+  const meetupResult = await Meetup.find({ _id: param });
+  const attendingResult = await Register.find({ meetingId: param });
+  console.log(attendingResult);
 
   return {
     props: {
-      meetup: result.map((meetup) => ({
+      meetup: meetupResult.map((meetup) => ({
         id: meetup._id.toString(),
         city: meetup.city,
         location: meetup.location,
         description: meetup.description,
         language: meetup.language,
+      })),
+      attending: attendingResult.map((attending) => ({
+        name: attending.name,
+        mail: attending.mail,
+        phone: attending.phone,
       })),
     },
   };

@@ -8,10 +8,13 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import CustomButton from "../../../components/ui/CustomButton";
+import { getAttendees } from "../../../store/attendingSlice";
 import classes from "./index.module.css";
 
 export default function index() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -36,7 +39,7 @@ export default function index() {
       mail: mail,
       meetingId: router.query.RegisterId,
     };
-
+    dispatch(getAttendees(data.name));
     saveToDb(data);
   };
 

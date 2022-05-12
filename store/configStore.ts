@@ -1,15 +1,10 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import attendingReducer from "./attendingSlice";
 
 export const store = configureStore({
-  reducer: {},
-});
-
-const ini;
-
-export const meetupSlice = createSlice({
-  name: "meetup",
-  initialState,
-  reducers: {},
+  reducer: {
+    attending: attendingReducer,
+  },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

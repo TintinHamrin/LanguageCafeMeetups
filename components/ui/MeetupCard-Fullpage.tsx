@@ -6,7 +6,9 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/configStore";
 import CustomButton from "./CustomButton";
 import classes from "./MeetupCard-Fullpage.module.css";
 
@@ -14,7 +16,6 @@ export default function MeetupCardFullpage(props) {
   const router = useRouter();
   const openRegisterHandler = () => {
     router.push(`/register/${props.id}`);
-    //set meetup id in global state
   };
 
   return (
@@ -27,10 +28,11 @@ export default function MeetupCardFullpage(props) {
           </Typography>
           <Typography variant="overline">{props.language}</Typography>
           <Typography variant="body1">{props.description}</Typography>
-          <CardActions>
-            <CustomButton onClick={openRegisterHandler}>
-              Learn More & Register
-            </CustomButton>
+          <CardActions className={classes.cardActions}>
+            <CustomButton onClick={openRegisterHandler}>Register</CustomButton>
+            <Card className={classes.attending}>
+              <CardContent>Attending: {props.attendees.length}</CardContent>
+            </Card>
           </CardActions>
         </CardContent>
       </Card>

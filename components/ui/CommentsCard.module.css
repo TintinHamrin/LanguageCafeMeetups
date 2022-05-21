@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  border: 1px solid#f6bd60;
+  width: 100%;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: stretch;
+}
+.readComments {
+  min-height: 4rem;
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+.commentsCard {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

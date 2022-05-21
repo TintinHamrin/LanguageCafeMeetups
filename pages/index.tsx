@@ -1,5 +1,4 @@
 import * as React from "react";
-import Image from "next/image";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,7 +7,6 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Typography } from "@mui/material";
 import classes from "./index.module.css";
 import { useRouter } from "next/router";
-import { propsToClassKey } from "@mui/styles";
 
 // if (process.browser) {
 //   const parallax = document.getElementById("id");
@@ -43,7 +41,7 @@ export default function BasicSelect(props) {
         <FormControl className="classes.formControl">
           <InputLabel>City</InputLabel>
           <Select value={""} label="City" onChange={handleChange}>
-            <MenuItem value={"new york"}>New York</MenuItem>
+            <MenuItem value={"newyork"}>New York</MenuItem>
             <MenuItem value={"miami"}>Miami</MenuItem>
             <MenuItem value={"colorado"}>Colorado</MenuItem>
           </Select>

@@ -18,7 +18,11 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: space-around;
+  /* justify-content: space-around; */
+}
+
+.cardContent > * {
+  margin: 1rem;
 }
 
 .cardActions {

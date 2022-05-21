@@ -11,4 +11,17 @@ function CustomButton(props) {
   );
 }
 
+export function CustomButtonDisabled(props) {
+  return (
+    <Button
+      disabled
+      className={classes.button}
+      size="small"
+      onClick={props.onClick}
+    >
+      {props.children}
+    </Button>
+  );
+}
+
 export default CustomButton;

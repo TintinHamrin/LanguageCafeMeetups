@@ -1,8 +1,9 @@
 import { Card, CardActions, CardContent, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import CustomButton from "./CustomButton";
+import CustomButton, { CustomButtonDisabled } from "./CustomButton";
 import classes from "./MeetupCard-Fullpage.module.css";
+import Moment from "moment";
 
 export default function MeetupCardFullpage(props) {
   const [formattedString, setFormattedString] = useState("");
@@ -12,11 +13,16 @@ export default function MeetupCardFullpage(props) {
   };
 
   useEffect(() => {
-    const groups = props.date.match(
-      /(?<day>\w+) (?<month>\w+) (?<date>\d+) (?<year>\d+) (?<time>\d+\:\d+)/
-    );
-    const str = `${groups.groups.day} ${groups.groups.date} of ${groups.groups.month} at ${groups.groups.time}`;
-    setFormattedString(str);
+    const d = new Date(props.date);
+
+    console.log("props date", props.date);
+    console.log("d", d);
+
+    // const groups = props.date.match(
+    //   /(?<day>\w+) (?<month>\w+) (?<date>\d+) (?<year>\d+) (?<time>\d+\:\d+)/
+    // );
+    //const str = `${groups.groups.day} ${groups.groups.date} of ${groups.groups.month} at ${groups.groups.time}`;
+    setFormattedString(Moment(d).format("DD-MM-YYYY"));
   }, []);
 
   return (
@@ -32,9 +38,9 @@ export default function MeetupCardFullpage(props) {
           <Typography variant="body1">{props.description}</Typography>
           <CardActions className={classes.cardActions}>
             <CustomButton onClick={openRegisterHandler}>Register</CustomButton>
-            <Card className={classes.attending}>
-              <CardContent>Attending: {props.attendees.length}</CardContent>
-            </Card>
+            <CustomButtonDisabled className={classes.attending}>
+              Attending: {props.attendees.length}
+            </CustomButtonDisabled>
           </CardActions>
         </CardContent>
       </Card>

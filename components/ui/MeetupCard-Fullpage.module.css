@@ -41,7 +41,7 @@
 }
 
 .registerButton {
-  width: 80%;
+  width: 80% !important;
 }
 
 @media (max-width: 500px) {

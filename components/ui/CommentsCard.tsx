@@ -6,12 +6,46 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import classes from "./CommentsCard.module.css";
 import CustomButton, { CustomButtonDisabled } from "./CustomButton";
 
 function CommentsCard() {
-  const addCommentHandler = () => {};
+  const router = useRouter();
+  const { MeetupId } = router.query;
+  const [name, setName] = useState("");
+  const [comment, setComment] = useState("");
+  //console.log("x", MeetupId);
+
+  const onNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const onCommentChange = (e) => {
+    setComment(e.target.value);
+    //console.log("changing name");
+  };
+
+  const addCommentHandler = async () => {
+    console.log("clicking");
+    const commentData = {
+      name: name,
+      comment: comment,
+      date: new Date(Date.now()),
+      meetupId: MeetupId,
+    };
+
+    const data = await fetch("/api/new-comment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(commentData),
+    });
+    const result = await data.json();
+    console.log(result);
+  };
 
   return (
     <>
@@ -31,6 +65,7 @@ function CommentsCard() {
                 rows={1}
                 //defaultValue="Name"
                 variant="filled"
+                onChange={onNameChange}
               />
               <TextField
                 fullWidth
@@ -40,6 +75,7 @@ function CommentsCard() {
                 rows={3}
                 //defaultValue="Comment"
                 variant="filled"
+                onChange={onCommentChange}
               />
               <CardActions className={classes.cardActions}>
                 <CustomButton onClick={addCommentHandler}>

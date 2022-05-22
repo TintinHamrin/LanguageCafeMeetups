@@ -25,14 +25,23 @@
   margin: 1rem;
 }
 
-.cardActions {
+.header {
   display: flex;
   justify-content: space-between;
+}
+
+.cardActions {
+  display: flex;
+  justify-content: center;
 }
 
 .attending {
   background-color: #f6bd60;
   color: white;
+}
+
+.registerButton {
+  width: 80%;
 }
 
 @media (max-width: 500px) {

@@ -28,10 +28,15 @@ export default function MeetupCardFullpage(props) {
     <div className={classes.body}>
       <Card className={classes.card}>
         <CardContent className={classes.cardContent}>
-          {/* <Typography variant="h2">{props.location}</Typography> */}
-          <Typography variant="h5">
-            {props.location}, {props.city}
-          </Typography>
+          <div className={classes.header}>
+            <Typography variant="h5">
+              {props.location}, {props.city}
+            </Typography>
+
+            <CustomButtonDisabled className={classes.attending}>
+              Attending: {props.attendees.length}
+            </CustomButtonDisabled>
+          </div>
           <Divider></Divider>
           <Typography variant="subtitle1">{props.language}</Typography>
           <Divider></Divider>
@@ -40,10 +45,12 @@ export default function MeetupCardFullpage(props) {
           <Typography variant="body1">{props.description}</Typography>
           <Divider></Divider>
           <CardActions className={classes.cardActions}>
-            <CustomButton onClick={openRegisterHandler}>Register</CustomButton>
-            <CustomButtonDisabled className={classes.attending}>
-              Attending: {props.attendees.length}
-            </CustomButtonDisabled>
+            <CustomButton
+              className={classes.registerButton}
+              onClick={openRegisterHandler}
+            >
+              Register
+            </CustomButton>
           </CardActions>
           <CommentsCard />
         </CardContent>

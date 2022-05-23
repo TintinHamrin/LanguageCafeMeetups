@@ -14,8 +14,9 @@ import { getAttendees } from "../../../store/attendingSlice";
 import classes from "./index.module.css";
 
 export default function index() {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const router = useRouter();
+  const { MeetupId } = router.query;
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [mail, setMail] = useState("");
@@ -39,8 +40,9 @@ export default function index() {
       mail: mail,
       meetingId: router.query.RegisterId,
     };
-    dispatch(getAttendees(data.name));
+    //dispatch(getAttendees(data.name));
     saveToDb(data);
+    router.push(`/meetup/${MeetupId}`);
   };
 
   const saveToDb = async (data) => {

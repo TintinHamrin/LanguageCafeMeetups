@@ -22,12 +22,33 @@
   margin: 2rem 0;
   font-style: italic;
 }
-.readComments > p {
+/* .readComments > p {
   margin-bottom: 1rem;
-}
+} */
 
 .commentsCard {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.commentWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.commentName {
+  margin-right: 1rem;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.commentDate {
+  /* position: absolute;
+  right: 0; */
+  min-width: 8rem;
+  max-width: 8rem;
+  margin-left: 1rem;
+  font-style: normal;
 }

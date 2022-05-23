@@ -51,7 +51,14 @@ function CommentsCard({ comments }) {
       body: JSON.stringify(commentData),
     });
     const result = await data.json();
-    console.log(result);
+
+    updateCommentsSection();
+  };
+
+  const updateCommentsSection = () => {
+    setName("");
+    setComment("");
+    router.push(`/meetup/${MeetupId}`);
   };
 
   return (
@@ -67,10 +74,16 @@ function CommentsCard({ comments }) {
               )}
 
               {comments.map((comment) => (
-                <p key={comment.name}>
-                  {comment.name}: {comment.comment},{comment.written} day(s)
-                  ago.
-                </p>
+                <div className={classes.commentWrapper} key={comment.name}>
+                  <span>
+                    <span className={classes.commentName}>{comment.name}:</span>
+                    {comment.comment}
+                  </span>
+                  <span className={classes.commentDate}>
+                    {comment.written} day(s) ago.
+                  </span>
+                  <Divider />
+                </div>
               ))}
             </div>
             <div className={classes.commentsCard}>
@@ -79,9 +92,10 @@ function CommentsCard({ comments }) {
                 //id="standard-multiline-static"
                 label="Name"
                 rows={1}
-                //defaultValue="Name"
+                //defaultValue={name}
                 variant="filled"
                 onChange={onNameChange}
+                value={name}
               />
               <TextField
                 fullWidth
@@ -89,9 +103,10 @@ function CommentsCard({ comments }) {
                 label="Comment"
                 multiline
                 rows={3}
-                //defaultValue="Comment"
+                //defaultValue={comment}
                 variant="filled"
                 onChange={onCommentChange}
+                value={comment}
               />
               <CardActions className={classes.cardActions}>
                 <CustomButton onClick={addCommentHandler}>

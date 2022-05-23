@@ -20,8 +20,8 @@ export default function MeetupCardFullpage(props) {
   };
 
   useEffect(() => {
-    const d = new Date(props.date);
-    setFormattedString(Moment(d).format("DD-MM-YYYY HH:MM"));
+    const date = new Date(props.date);
+    setFormattedString(Moment(date).format("DD-MM-YYYY HH:MM"));
   }, []);
 
   return (
@@ -52,7 +52,7 @@ export default function MeetupCardFullpage(props) {
               Register
             </CustomButton>
           </CardActions>
-          <CommentsCard />
+          <CommentsCard comments={props.comments} />
         </CardContent>
       </Card>
     </div>

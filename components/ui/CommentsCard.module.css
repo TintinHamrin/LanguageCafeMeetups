@@ -19,8 +19,11 @@
 }
 .readComments {
   min-height: 4rem;
-  margin-top: 2rem;
+  margin: 2rem 0;
   font-style: italic;
+}
+.readComments > p {
+  margin-bottom: 1rem;
 }
 
 .commentsCard {

@@ -1,10 +1,12 @@
 import { convertLength } from "@mui/material/styles/cssUtils";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import MeetupBox from "../../../components/ui/MeetupBox";
 import MeetupCard from "../../../components/ui/MeetupCard";
 import MeetupCardFullpage from "../../../components/ui/MeetupCard-Fullpage";
 import connect from "../../../database/connection";
+import NewComment from "../../../database/models/new-comment";
 import Meetup from "../../../database/models/new-meetup";
 import Register from "../../../database/models/registering";
 import { getAttendees } from "../../../store/attendingSlice";
@@ -12,12 +14,6 @@ import { getAttendees } from "../../../store/attendingSlice";
 function index(props) {
   const [attendees, setAttendees] = useState({});
   const dispatch = useDispatch();
-
-  // props.attending.map((attending) => {
-  //   dispatch(getAttendees([]));
-  //   dispatch(getAttendees(attending.name));
-  //   console.log("index", attending.name);
-  // });
 
   useEffect(() => {
     setAttendees(props.attending);
@@ -34,6 +30,7 @@ function index(props) {
           id={meetup.id}
           date={meetup.date}
           attendees={attendees}
+          comments={props.comments}
         />
       ))}
     </>
@@ -67,7 +64,7 @@ export async function getStaticProps(context) {
 
   const meetupResult = await Meetup.find({ _id: param });
   const attendingResult = await Register.find({ meetingId: param });
-  console.log(attendingResult);
+  const commentResult = await NewComment.find({ meetupId: param });
 
   return {
     props: {
@@ -83,6 +80,13 @@ export async function getStaticProps(context) {
         name: attending.name,
         mail: attending.mail,
         phone: attending.phone,
+      })),
+      comments: commentResult.map((comment) => ({
+        name: comment.name,
+        comment: comment.comment,
+        meetingId: comment.meetupId,
+        date: comment.date.toString(),
+        written: moment(Date.now()).diff(comment.date.toString(), "days"),
       })),
     },
   };

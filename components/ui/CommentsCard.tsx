@@ -6,17 +6,26 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import moment from "moment";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./CommentsCard.module.css";
 import CustomButton, { CustomButtonDisabled } from "./CustomButton";
 
-function CommentsCard() {
+function CommentsCard({ comments }) {
   const router = useRouter();
   const { MeetupId } = router.query;
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
-  //console.log("x", MeetupId);
+  console.log(comments.length);
+
+  //   useEffect(() => {
+  //     comments.map((comment) => {
+  //       const y = moment(comment.date).format("YYYY-MM-DD");
+  //       const diff = moment(Date.now()).diff(y, "days");
+  //       console.log("diff in days", diff);
+  //     });
+  //   });
 
   const onNameChange = (e) => {
     setName(e.target.value);
@@ -24,11 +33,9 @@ function CommentsCard() {
 
   const onCommentChange = (e) => {
     setComment(e.target.value);
-    //console.log("changing name");
   };
 
   const addCommentHandler = async () => {
-    console.log("clicking");
     const commentData = {
       name: name,
       comment: comment,
@@ -55,7 +62,16 @@ function CommentsCard() {
             <Typography variant="body2">Comments</Typography>
 
             <div className={classes.readComments}>
-              <Typography variant="body2">No comments yet...</Typography>
+              {comments.length === 0 && (
+                <Typography variant="body2">No comments yet...</Typography>
+              )}
+
+              {comments.map((comment) => (
+                <p key={comment.name}>
+                  {comment.name}: {comment.comment},{comment.written} day(s)
+                  ago.
+                </p>
+              ))}
             </div>
             <div className={classes.commentsCard}>
               <TextField

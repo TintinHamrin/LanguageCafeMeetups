@@ -82,7 +82,6 @@ function CommentsCard({ comments }) {
                   <span className={classes.commentDate}>
                     {comment.written} day(s) ago.
                   </span>
-                  <Divider />
                 </div>
               ))}
             </div>

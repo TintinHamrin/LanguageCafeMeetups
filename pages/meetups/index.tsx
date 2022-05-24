@@ -8,17 +8,17 @@ import MeetupBox from "../../components/ui/MeetupBox";
 import moment from "moment";
 
 export default function Index(props) {
-  const today = moment(Date.now()).format("YYYY-MM-DD");
-  const meetupDate = moment(props.meetups[0].date).format("YYYY-MM-DD");
-  const x = moment(today).isBefore(meetupDate);
-  console.log(today, meetupDate, x);
-  // const filteredByDate = props.meetups.filter((meetup) => {
-  //   moment(Date.now()).isAfter(props.meetups.date);
-  // });
+  //TODO fix to also include today meetup
+  const filteredByDate = props.meetups.filter((meetup) => {
+    const today = moment(Date.now()).format("YYYY-MM-DD");
+    const meetupDate = moment(meetup.date).format("YYYY-MM-DD");
+    return moment(today).isBefore(meetupDate);
+  });
+
   return (
     <>
       <MeetupBox>
-        {props.meetups.map((meetup) => (
+        {filteredByDate.map((meetup) => (
           <MeetupCard
             language={meetup.language}
             city={meetup.city}

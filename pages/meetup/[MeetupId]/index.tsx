@@ -14,6 +14,9 @@ import { getAttendees } from "../../../store/attendingSlice";
 function index(props) {
   const [attendees, setAttendees] = useState({});
   const dispatch = useDispatch();
+  // props.comments.written.map((comment) => {
+  //   console.log(comment);
+  // });
 
   useEffect(() => {
     setAttendees(props.attending);

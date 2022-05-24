@@ -5,8 +5,16 @@ import MeetupCard from "../../components/ui/MeetupCard";
 import classes from "./index.module.css";
 import { Box, Grid } from "@mui/material";
 import MeetupBox from "../../components/ui/MeetupBox";
+import moment from "moment";
 
 export default function Index(props) {
+  const today = moment(Date.now()).format("YYYY-MM-DD");
+  const meetupDate = moment(props.meetups[0].date).format("YYYY-MM-DD");
+  const x = moment(today).isBefore(meetupDate);
+  console.log(today, meetupDate, x);
+  // const filteredByDate = props.meetups.filter((meetup) => {
+  //   moment(Date.now()).isAfter(props.meetups.date);
+  // });
   return (
     <>
       <MeetupBox>
@@ -36,6 +44,7 @@ export async function getStaticProps() {
         language: field.language,
         location: field.location,
         description: field.description,
+        date: field.date.toString(),
         city: field.city,
         id: field._id.toString(),
       })),

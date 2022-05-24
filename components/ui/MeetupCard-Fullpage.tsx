@@ -22,6 +22,7 @@ export default function MeetupCardFullpage(props) {
   useEffect(() => {
     const date = new Date(props.date);
     setFormattedString(Moment(date).format("DD-MM-YYYY HH:MM"));
+    console.log(props.comments[0]);
   }, []);
 
   return (

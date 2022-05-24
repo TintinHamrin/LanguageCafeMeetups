@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   margin-top: 3rem;
+  max-height: 50%;
 }
 
 .card {
@@ -21,6 +22,7 @@
   min-height: 4rem;
   margin: 2rem 0;
   font-style: italic;
+  overflow-y: auto;
 }
 /* .readComments > p {
   margin-bottom: 1rem;

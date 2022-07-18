@@ -1,4 +1,4 @@
-import Meetup from "../../database/models/new-meetup";
+//import Meetup from "../../database/models/new-meetup";
 import * as React from "react";
 import connect from "../../database/connection";
 import MeetupCard from "../../components/ui/MeetupCard";
@@ -6,26 +6,24 @@ import classes from "./index.module.css";
 import { Box, Grid } from "@mui/material";
 import MeetupBox from "../../components/ui/MeetupBox";
 import moment from "moment";
+import { Meetup, MeetupDocument } from "../../database/paprModels";
 
-export default function Index(props) {
+export default function Index({ meetups }: { meetups: string[] }) {
   //TODO fix to also include today meetup
-  const filteredByDate = props.meetups.filter((meetup) => {
-    const today = moment(Date.now()).format("YYYY-MM-DD");
-    const meetupDate = moment(meetup.date).format("YYYY-MM-DD");
-    return moment(today).isBefore(meetupDate);
-  });
+  const filteredByDate = meetups
+    .map((m) => JSON.parse(m) as MeetupDocument)
+    .filter((meetup) => {
+      console.log(meetup);
+      console.log(meetup.date);
+      const today = moment(Date.now()).format("YYYY-MM-DD");
+      return moment(Date.now()).isAfter(meetup.date);
+    });
 
   return (
     <>
-      <MeetupBox>
+      <MeetupBox city="NYC, Colorado and Miami">
         {filteredByDate.map((meetup) => (
-          <MeetupCard
-            language={meetup.language}
-            city={meetup.city}
-            description={meetup.description}
-            location={meetup.location}
-            id={meetup.id}
-          />
+          <MeetupCard meetup={meetup} />
         ))}
       </MeetupBox>
     </>
@@ -33,21 +31,14 @@ export default function Index(props) {
 }
 
 export async function getStaticProps() {
-  connect();
-  console.log("in x");
+  await connect();
   const res = await Meetup.find({});
-  console.log("after x");
 
   return {
     props: {
-      meetups: res.map((field) => ({
-        language: field.language,
-        location: field.location,
-        description: field.description,
-        date: field.date.toString(),
-        city: field.city,
-        id: field._id.toString(),
-      })),
+      meetups: res.map((meetup) => {
+        return JSON.stringify(meetup);
+      }),
     },
   };
 }

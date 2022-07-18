@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   margin-top: 3rem;
-  max-height: 50%;
+  height: 50%;
 }
 
 .card {
@@ -10,6 +10,7 @@
   justify-content: center;
   border: 1px solid#f6bd60;
   width: 100%;
+  margin-bottom: 1rem;
 }
 
 .cardContent {
@@ -24,9 +25,6 @@
   font-style: italic;
   overflow-y: auto;
 }
-/* .readComments > p {
-  margin-bottom: 1rem;
-} */
 
 .commentsCard {
   display: flex;
@@ -47,10 +45,11 @@
 }
 
 .commentDate {
-  /* position: absolute;
-  right: 0; */
   min-width: 8rem;
-  /* max-width: 8rem; */
   margin-left: 1rem;
   font-style: normal;
+}
+
+.cartActions {
+  margin: 0.5rem;
 }

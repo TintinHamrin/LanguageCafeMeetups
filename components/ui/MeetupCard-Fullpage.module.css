@@ -12,6 +12,7 @@
   position: relative;
   left: 50%;
   opacity: 0.95;
+  overflow: auto;
 }
 
 .card > * {

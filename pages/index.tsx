@@ -24,7 +24,7 @@ import { useRouter } from "next/router";
 //   });
 // }
 
-export default function BasicSelect(props) {
+export default function BasicSelect() {
   const router = useRouter();
 
   const handleChange = (event: SelectChangeEvent) => {

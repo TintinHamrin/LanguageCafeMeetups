@@ -10,62 +10,55 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   Typography,
 } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DateTimePicker } from "@mui/x-date-pickers";
-
-interface MeetupData {
-  location: string;
-  description: string;
-  language: string;
-  city: string;
-  date: Date;
-}
+import { useRouter } from "next/router";
+import { ChangeEvent } from "react";
+import { MeetupDocument } from "../../database/paprModels";
 
 export default function MultilineTextFields() {
-  const [location, setLocation] = React.useState();
-  const [description, setDescription] = React.useState();
+  const router = useRouter();
+  const [location, setLocation] = React.useState("");
+  const [description, setDescription] = React.useState("");
   const [language, setLanguage] = React.useState("");
   const [city, setCity] = React.useState("");
-  const [date, setDate] = React.useState<Date | null>(null);
-  let meetupData: MeetupData;
+  const [date, setDate] = React.useState<Date>();
 
-  //const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const handleLocationChange = (event: any) => {
+  const handleLocationChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setLocation(event.target.value);
   };
 
-  const handleDescriptionChange = (event: any) => {
+  const handleDescriptionChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setDescription(event.target.value);
   };
 
-  const handleLanguageChange = (event: any) => {
+  const handleLanguageChange = (event: SelectChangeEvent<string>) => {
     setLanguage(event.target.value);
   };
 
-  const handleCityChange = (event: any) => {
+  const handleCityChange = (event: SelectChangeEvent<string>) => {
     setCity(event.target.value);
   };
+  console.log("date", date);
 
   const onSubmitHandler = async () => {
-    //TODO refactor
-    meetupData = {
+    const meetupData = {
+      id: 5,
       location: location,
       description: description,
       language: language,
       city: city,
-      date: date,
+      date: date!,
     };
-    console.log("d", date.toUTCString());
-    saveToDb();
-  };
-
-  const saveToDb = async () => {
-    console.log("saving data");
-    console.log(meetupData);
     const data = await fetch("/api/new-meetup", {
       method: "POST",
       headers: {
@@ -75,6 +68,8 @@ export default function MultilineTextFields() {
     });
     const result = await data.json();
     console.log(result);
+
+    router.push(`/meetups`);
   };
 
   return (
@@ -90,20 +85,6 @@ export default function MultilineTextFields() {
             <Typography variant="h4" sx={{ mb: "15px" }}>
               Add your language Meetup!
             </Typography>
-
-            {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                label="Date"
-                value={date}
-                onChange={(newDate) => {
-                  setDate(newDate);
-                }}
-                renderInput={(params) => (
-                  <TextField className={classes.datePicker} {...params} />
-                )}
-              />
-            </LocalizationProvider> */}
-
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(props) => (
@@ -112,7 +93,8 @@ export default function MultilineTextFields() {
                 label="Date and time"
                 value={date}
                 onChange={(newValue) => {
-                  setDate(newValue);
+                  console.log("new value", newValue);
+                  setDate(newValue!);
                 }}
               />
             </LocalizationProvider>

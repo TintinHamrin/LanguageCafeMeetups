@@ -1,16 +1,21 @@
-import mongoose from "mongoose";
+import { NextApiRequest, NextApiResponse } from "next/types";
 import connect from "../../database/connection";
-import Meetup from "../../database/models/new-meetup";
+import { Meetup, MeetupDocument } from "../../database/paprModels";
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method === "POST") {
-    connect();
+    await connect();
     const data = req.body;
-    const { title, date, location, description, language, city } = data;
+    const { date, location, description, language, city, id } =
+      data as MeetupDocument;
+    console.log("data", location, description, language, city, id);
 
-    const dbEntry = await Meetup.create({
-      //title: title,
-      date: date,
+    const dbEntry = await Meetup.insertOne({
+      id: id,
+      date: new Date(date!),
       location: location,
       description: description,
       language: language,

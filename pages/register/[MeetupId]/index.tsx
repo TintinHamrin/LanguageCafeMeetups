@@ -20,16 +20,17 @@ export default function index() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [mail, setMail] = useState("");
+  console.log("mid", MeetupId);
 
-  const handleNameChange = (event) => {
+  const handleNameChange = (event: any) => {
     setName(event.target.value);
   };
 
-  const handlePhoneChange = (event) => {
+  const handlePhoneChange = (event: any) => {
     setPhone(event.target.value);
   };
 
-  const handleMailChange = (event) => {
+  const handleMailChange = (event: any) => {
     setMail(event.target.value);
   };
 
@@ -45,7 +46,7 @@ export default function index() {
     router.push(`/meetup/${MeetupId}`);
   };
 
-  const saveToDb = async (data) => {
+  const saveToDb = async (data: any) => {
     console.log("saving data");
     console.log(data);
     const x = await fetch("/api/register", {

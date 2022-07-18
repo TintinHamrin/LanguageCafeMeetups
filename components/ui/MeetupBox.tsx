@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
 import classes from "./MeetupBox.module.css";
 
-function MeetupBox({ children, city }) {
+function MeetupBox({ children, city }: { children: any; city: any }) {
   return (
     <div className={classes.body}>
       <Typography className={classes.header} variant="overline">

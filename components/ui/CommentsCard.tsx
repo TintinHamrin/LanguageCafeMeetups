@@ -7,12 +7,14 @@ import {
   Typography,
 } from "@mui/material";
 import moment from "moment";
+import { ObjectId } from "mongodb";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { CommentDocument } from "../../database/paprModels";
 import classes from "./CommentsCard.module.css";
 import CustomButton, { CustomButtonDisabled } from "./CustomButton";
 
-function CommentsCard({ comments }) {
+function CommentsCard({ comments }: { comments: CommentDocument[] }) {
   const router = useRouter();
   const { MeetupId } = router.query;
   const [name, setName] = useState("");
@@ -27,20 +29,22 @@ function CommentsCard({ comments }) {
   //     });
   //   });
 
-  const onNameChange = (e) => {
+  const onNameChange = (e: any) => {
     setName(e.target.value);
   };
 
-  const onCommentChange = (e) => {
+  const onCommentChange = (e: any) => {
     setComment(e.target.value);
   };
 
   const addCommentHandler = async () => {
+    console.log("adding");
     const commentData = {
+      //_id: new string,
+      date: new Date(Date.now()),
       name: name,
       comment: comment,
-      date: new Date(Date.now()),
-      meetupId: MeetupId,
+      meetupId: MeetupId! as string,
     };
 
     const data = await fetch("/api/new-comment", {
@@ -51,6 +55,7 @@ function CommentsCard({ comments }) {
       body: JSON.stringify(commentData),
     });
     const result = await data.json();
+    console.log(result);
 
     updateCommentsSection();
   };
@@ -80,7 +85,7 @@ function CommentsCard({ comments }) {
                     {comment.comment}
                   </span>
                   <span className={classes.commentDate}>
-                    {comment.written} day(s) ago.
+                    {/* {comment.written} day(s) ago. */}x day(s) ago.
                   </span>
                 </div>
               ))}

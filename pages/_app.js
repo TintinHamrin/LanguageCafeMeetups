@@ -29,7 +29,7 @@ const theme = createTheme({
   },
 });
 
-function MyApp({ Component, pageProps, props }) {
+export default function App({ Component, pageProps, props }) {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
@@ -40,8 +40,6 @@ function MyApp({ Component, pageProps, props }) {
     </Provider>
   );
 }
-
-export default MyApp;
 
 export async function getStaticProps() {
   console.log("in app");

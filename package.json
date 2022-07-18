@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest"
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
@@ -21,6 +22,7 @@
     "mongodb": "^4.5.0",
     "mongoose": "^6.3.0",
     "next": "^12.1.5",
+    "papr": "^7.0.1",
     "react": "^18.1.0",
     "react-datepicker": "^4.7.0",
     "react-dom": "^18.1.0",
@@ -28,7 +30,17 @@
     "rellax": "^1.12.1"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.17.12",
+    "@testing-library/dom": "^8.13.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^14.2.0",
+    "@types/jest": "^27.5.1",
     "@types/react": "^18.0.5",
+    "babel-jest": "^28.1.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "typescript": "^4.6.3"
   }
 }

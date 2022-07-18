@@ -1,47 +1,49 @@
-import { convertLength } from "@mui/material/styles/cssUtils";
-import moment from "moment";
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import MeetupBox from "../../../components/ui/MeetupBox";
-import MeetupCard from "../../../components/ui/MeetupCard";
+import { ObjectId } from "mongodb";
+import React from "react";
 import MeetupCardFullpage from "../../../components/ui/MeetupCard-Fullpage";
 import connect from "../../../database/connection";
-import NewComment from "../../../database/models/new-comment";
-import Meetup from "../../../database/models/new-meetup";
-import Register from "../../../database/models/registering";
-import { getAttendees } from "../../../store/attendingSlice";
+import {
+  Meetup,
+  Comment,
+  MeetupDocument,
+  Registered,
+  RegisteredDocument,
+  CommentDocument,
+} from "../../../database/paprModels";
 
-function index(props) {
-  const [attendees, setAttendees] = useState({});
-  const dispatch = useDispatch();
+function index({
+  meetup,
+  attendees,
+  comments,
+  data,
+}: {
+  meetup: string;
+  attendees: string;
+  comments: string;
+  data: string;
+}) {
+  //TODO why??
+  //const dispatch = useDispatch();
   // props.comments.written.map((comment) => {
   //   console.log(comment);
   // });
 
-  useEffect(() => {
-    setAttendees(props.attending);
-  }, []);
+  const deserializedData = JSON.parse(data);
 
   return (
     <>
-      {props.meetup.map((meetup) => (
-        <MeetupCardFullpage
-          language={meetup.language}
-          city={meetup.city}
-          description={meetup.description}
-          location={meetup.location}
-          id={meetup.id}
-          date={meetup.date}
-          attendees={attendees}
-          comments={props.comments}
-        />
-      ))}
+      <MeetupCardFullpage
+        meetup={deserializedData["meetup"]}
+        comments={deserializedData["comments"]}
+        attendees={deserializedData["attendees"]}
+      />
     </>
   );
 }
 
 export default index;
 
+// TODO necessary?
 export async function getStaticPaths() {
   return {
     paths: [
@@ -60,37 +62,26 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context) {
+// TODO fix type for context
+export async function getStaticProps(context: any) {
   const param = context.params.MeetupId;
-  console.log("param", param);
-  connect();
+  await connect();
 
-  const meetupResult = await Meetup.find({ _id: param });
-  const attendingResult = await Register.find({ meetingId: param });
-  const commentResult = await NewComment.find({ meetupId: param });
+  const meetupResult = await Meetup.findOne({
+    _id: new ObjectId(param),
+  });
+  const attendingResult = await Registered.find({ meetingId: param });
+  const commentsResult = await Comment.find({ meetupId: param });
+
+  const data = {
+    meetup: meetupResult,
+    attendees: attendingResult,
+    comments: commentsResult,
+  };
 
   return {
     props: {
-      meetup: meetupResult.map((meetup) => ({
-        id: meetup._id.toString(),
-        city: meetup.city,
-        location: meetup.location,
-        description: meetup.description,
-        language: meetup.language,
-        date: meetup.date.toString(),
-      })),
-      attending: attendingResult.map((attending) => ({
-        name: attending.name,
-        mail: attending.mail,
-        phone: attending.phone,
-      })),
-      comments: commentResult.map((comment) => ({
-        name: comment.name,
-        comment: comment.comment,
-        meetingId: comment.meetupId,
-        date: comment.date.toString(),
-        written: moment(Date.now()).diff(comment.date.toString(), "days"),
-      })),
+      data: JSON.stringify(data),
     },
   };
 }

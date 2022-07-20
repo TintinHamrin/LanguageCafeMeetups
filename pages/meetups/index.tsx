@@ -1,25 +1,17 @@
-//import Meetup from "../../database/models/new-meetup";
 import * as React from "react";
-import connect from "../../database/connection";
 import MeetupCard from "../../components/ui/MeetupCard";
-import classes from "./index.module.css";
-import { Box, Grid } from "@mui/material";
 import MeetupBox from "../../components/ui/MeetupBox";
 import moment from "moment";
-import { Meetup, MeetupDocument } from "../../database/paprModels";
-
-import { PrismaClient } from "@prisma/client";
-//const prisma = new PrismaClient()
+import { Meetup, PrismaClient } from "@prisma/client";
 
 export default function Index({ meetups }: { meetups: string[] }) {
   //TODO fix to also include today meetup
   const filteredByDate = meetups
-    .map((m) => JSON.parse(m) as MeetupDocument)
+    .map((m) => JSON.parse(m) as Meetup)
     .filter((meetup) => {
-      //console.log(meetup);
-      //console.log(meetup.date);
       const today = moment(Date.now()).format("YYYY-MM-DD");
       return moment(Date.now()).isAfter(meetup.date);
+      //TODO change to isBefore
     });
 
   return (
@@ -38,11 +30,7 @@ export async function getStaticProps() {
 
   const res = await prisma.meetup.findMany();
   console.log("from gsp", res);
-
   prisma.$disconnect();
-
-  // await connect();
-  // const res = await Meetup.find({});
 
   return {
     props: {

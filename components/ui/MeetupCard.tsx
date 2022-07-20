@@ -6,13 +6,14 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import { Meetup } from "@prisma/client";
 import { useRouter } from "next/router";
 import React from "react";
 import { MeetupDocument } from "../../database/paprModels";
 import CustomButton from "./CustomButton";
 import classes from "./MeetupCard.module.css";
 
-function MeetupCard({ meetup }: { meetup: any }) {
+function MeetupCard({ meetup }: { meetup: Meetup }) {
   const router = useRouter();
   //const param = props.id;
   console.log("id", meetup.id);

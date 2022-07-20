@@ -16,20 +16,21 @@ import {
   MeetupDocument,
   RegisteredDocument,
 } from "../../database/paprModels";
+import { Attendee, Comment, Meetup } from "@prisma/client";
 
 export default function MeetupCardFullpage({
   meetup,
   comments,
   attendees,
 }: {
-  meetup: any;
-  comments: any;
-  attendees: any;
+  meetup: Meetup;
+  comments: Comment;
+  attendees: Attendee;
 }) {
   const [formattedString, setFormattedString] = useState("");
   const router = useRouter();
   const openRegisterHandler = () => {
-    router.push(`/register/${meetup._id}`);
+    router.push(`/register/${meetup.id}`);
   };
 
   // useEffect(() => {

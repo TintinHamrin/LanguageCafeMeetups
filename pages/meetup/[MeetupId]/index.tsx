@@ -1,27 +1,15 @@
-import { PrismaClient } from "@prisma/client";
-import { ObjectId } from "mongodb";
+import { Attendee, Meetup, Comment, PrismaClient } from "@prisma/client";
 import React from "react";
 import MeetupCardFullpage from "../../../components/ui/MeetupCard-Fullpage";
-import connect from "../../../database/connection";
-import {
-  Meetup,
-  Comment,
-  MeetupDocument,
-  Registered,
-  RegisteredDocument,
-  CommentDocument,
-} from "../../../database/paprModels";
 
 function index({
-  meetup,
-  attendees,
-  comments,
   data,
+  meetup,
 }: {
-  meetup: string;
-  attendees: string;
-  comments: string;
   data: string;
+  meetup: Meetup;
+  attendees: Attendee[];
+  comments: Comment[];
 }) {
   //TODO why??
   //const dispatch = useDispatch();
@@ -34,7 +22,7 @@ function index({
   return (
     <>
       <MeetupCardFullpage
-        meetup={deserializedData["meetup"]}
+        meetup={meetup}
         comments={deserializedData["comments"]}
         attendees={deserializedData["attendees"]}
       />
@@ -66,38 +54,40 @@ export async function getStaticPaths() {
 // TODO fix type for context
 export async function getStaticProps(context: any) {
   const param = context.params.MeetupId;
-  // await connect();
-
-  // const meetupResult = await Meetup.findOne({
-  //   _id: new ObjectId(param),
-  // });
-  // const attendingResult = await Registered.find({ meetingId: param });
-  // const commentsResult = await Comment.find({ meetupId: param });
-
-  // const data = {
-  //   meetup: meetupResult,
-  //   attendees: attendingResult,
-  //   comments: commentsResult,
-  // };
 
   const prisma = new PrismaClient();
 
-  const res = await prisma.meetup.findUnique({
+  const meetup = await prisma.meetup.findUnique({
     where: {
       id: parseInt(param),
     },
   });
-  console.log("from gsp2", res);
+  const attendees = await prisma.attendee.findMany({
+    where: {
+      meetingId: parseInt(param),
+    },
+  });
+  const comments = await prisma.comment.findMany({
+    where: {
+      meetupId: parseInt(param),
+    },
+  });
+  // console.log("from gsp2", res);
 
   const data = {
-    meetup: res,
+    meetup: meetup,
+    attendees: attendees,
+    comments: comments,
   };
 
   prisma.$disconnect();
 
   return {
     props: {
-      data: JSON.stringify(data),
+      data: data,
+      meetup: meetup,
+      attendees: attendees,
+      comments: comments,
     },
   };
 }

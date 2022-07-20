@@ -22,9 +22,9 @@ export default function MeetupCardFullpage({
   comments,
   attendees,
 }: {
-  meetup: MeetupDocument;
-  comments: CommentDocument[];
-  attendees: RegisteredDocument[];
+  meetup: any;
+  comments: any;
+  attendees: any;
 }) {
   const [formattedString, setFormattedString] = useState("");
   const router = useRouter();
@@ -48,7 +48,7 @@ export default function MeetupCardFullpage({
             </Typography>
 
             <CustomButtonDisabled className={classes.attending}>
-              Attending: {attendees.length}
+              Attending: x
             </CustomButtonDisabled>
           </div>
           <Divider></Divider>
@@ -66,7 +66,7 @@ export default function MeetupCardFullpage({
               Register
             </CustomButton>
           </CardActions>
-          <CommentsCard comments={comments} />
+          {/* <CommentsCard comments={comments} /> */}
         </CardContent>
       </Card>
     </div>

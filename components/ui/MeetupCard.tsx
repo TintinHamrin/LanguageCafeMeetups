@@ -12,13 +12,13 @@ import { MeetupDocument } from "../../database/paprModels";
 import CustomButton from "./CustomButton";
 import classes from "./MeetupCard.module.css";
 
-function MeetupCard({ meetup }: { meetup: MeetupDocument }) {
+function MeetupCard({ meetup }: { meetup: any }) {
   const router = useRouter();
   //const param = props.id;
-  console.log(meetup._id);
+  console.log("id", meetup.id);
 
   const openMeetupHandler = () => {
-    router.push(`/meetup/${meetup._id}`);
+    router.push(`/meetup/${meetup.id}`);
   };
 
   return (

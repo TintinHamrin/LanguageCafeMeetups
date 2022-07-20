@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+  // provider = "postgresql"
+}
+
+model Meetup {
+  id          Int      @id @default(autoincrement())
+  location    String
+  date        DateTime
+  description String
+  language    String
+  city        String
+  createAt    DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("meetups")
+}
+
+model Comment {
+  meetupId  Int
+  id        Int      @id @default(autoincrement())
+  name      String
+  comment   String
+  date      DateTime @default(now())
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("comments")
+}
+
+model Attendee {
+  meetingId Int
+  id        Int      @id @default(autoincrement())
+  name      String
+  mail      String
+  phone     String
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("attendees")
+}

@@ -48,11 +48,9 @@ export default function MultilineTextFields() {
   const handleCityChange = (event: SelectChangeEvent<string>) => {
     setCity(event.target.value);
   };
-  console.log("date", date);
 
   const onSubmitHandler = async () => {
     const meetupData = {
-      id: 5,
       location: location,
       description: description,
       language: language,
@@ -67,7 +65,7 @@ export default function MultilineTextFields() {
       body: JSON.stringify(meetupData),
     });
     const result = await data.json();
-    console.log(result);
+    console.log("result", result);
 
     router.push(`/meetups`);
   };

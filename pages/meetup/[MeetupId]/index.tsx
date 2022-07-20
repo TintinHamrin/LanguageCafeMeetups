@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import { ObjectId } from "mongodb";
 import React from "react";
 import MeetupCardFullpage from "../../../components/ui/MeetupCard-Fullpage";
@@ -65,19 +66,34 @@ export async function getStaticPaths() {
 // TODO fix type for context
 export async function getStaticProps(context: any) {
   const param = context.params.MeetupId;
-  await connect();
+  // await connect();
 
-  const meetupResult = await Meetup.findOne({
-    _id: new ObjectId(param),
+  // const meetupResult = await Meetup.findOne({
+  //   _id: new ObjectId(param),
+  // });
+  // const attendingResult = await Registered.find({ meetingId: param });
+  // const commentsResult = await Comment.find({ meetupId: param });
+
+  // const data = {
+  //   meetup: meetupResult,
+  //   attendees: attendingResult,
+  //   comments: commentsResult,
+  // };
+
+  const prisma = new PrismaClient();
+
+  const res = await prisma.meetup.findUnique({
+    where: {
+      id: parseInt(param),
+    },
   });
-  const attendingResult = await Registered.find({ meetingId: param });
-  const commentsResult = await Comment.find({ meetupId: param });
+  console.log("from gsp2", res);
 
   const data = {
-    meetup: meetupResult,
-    attendees: attendingResult,
-    comments: commentsResult,
+    meetup: res,
   };
+
+  prisma.$disconnect();
 
   return {
     props: {

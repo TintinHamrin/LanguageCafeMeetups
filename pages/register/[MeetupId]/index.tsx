@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Attendee } from "@prisma/client";
+import { Attendee, Prisma } from "@prisma/client";
 import { useRouter } from "next/router";
 import React, { ChangeEvent, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -21,7 +21,6 @@ export default function index() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [mail, setMail] = useState("");
-  // console.log("mid", MeetupId);
 
   const handleNameChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setName(event.target.value);
@@ -36,11 +35,11 @@ export default function index() {
   };
 
   const handleSubmit = async () => {
-    const data = {
+    const attendee: Prisma.AttendeeCreateInput = {
       name: name,
       phone: phone,
       mail: mail,
-      meetingId: router.query.MeetupId! as string,
+      meetingId: parseInt(router.query.MeetupId! as string),
     };
     //dispatch(getAttendees(data.name));
     const res = await fetch("/api/register", {
@@ -48,25 +47,11 @@ export default function index() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(attendee),
     });
     const result = await res.json();
     router.push(`/meetup/${MeetupId}`);
   };
-
-  // const saveToDb = async (data: Attendee) => {
-  //   console.log("saving data");
-  //   console.log(data);
-  //   const x = await fetch("/api/register", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
-  //   const result = await x.json();
-  //   console.log(result);
-  // };
 
   return (
     <div className={classes.body}>

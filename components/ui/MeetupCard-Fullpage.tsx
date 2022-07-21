@@ -11,6 +11,7 @@ import CustomButton, { CustomButtonDisabled } from "./CustomButton";
 import classes from "./MeetupCard-Fullpage.module.css";
 import Moment from "moment";
 import { Attendee, Comment, Meetup } from "@prisma/client";
+import CommentsCard from "./CommentsCard";
 
 export default function MeetupCardFullpage({
   meetup,
@@ -60,7 +61,7 @@ export default function MeetupCardFullpage({
               Register
             </CustomButton>
           </CardActions>
-          {/* <CommentsCard comments={comments} /> */}
+          <CommentsCard comments={comments} />
         </CardContent>
       </Card>
     </div>

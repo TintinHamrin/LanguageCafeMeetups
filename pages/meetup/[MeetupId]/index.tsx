@@ -3,12 +3,6 @@ import React from "react";
 import MeetupCardFullpage from "../../../components/ui/MeetupCard-Fullpage";
 
 function index({ data }: { data: string }) {
-  //TODO why??
-  //const dispatch = useDispatch();
-  // props.comments.written.map((comment) => {
-  //   console.log(comment);
-  // });
-
   const deserializedData = JSON.parse(data);
 
   return (

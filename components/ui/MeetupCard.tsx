@@ -9,7 +9,6 @@ import {
 import { Meetup } from "@prisma/client";
 import { useRouter } from "next/router";
 import React from "react";
-import { MeetupDocument } from "../../database/paprModels";
 import CustomButton from "./CustomButton";
 import classes from "./MeetupCard.module.css";
 

@@ -19,7 +19,6 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { useRouter } from "next/router";
 import { ChangeEvent } from "react";
-import { MeetupDocument } from "../../database/paprModels";
 
 export default function MultilineTextFields() {
   const router = useRouter();
@@ -27,7 +26,7 @@ export default function MultilineTextFields() {
   const [description, setDescription] = React.useState("");
   const [language, setLanguage] = React.useState("");
   const [city, setCity] = React.useState("");
-  const [date, setDate] = React.useState<Date>();
+  const [date, setDate] = React.useState<Date>(); //TODO why possibly undefined?
 
   const handleLocationChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -64,11 +63,19 @@ export default function MultilineTextFields() {
       },
       body: JSON.stringify(meetupData),
     });
-    const result = await data.json();
-    console.log("result", result);
+    const result = await data.json(); //TODO should i have this line??
 
-    router.push(`/meetups`);
+    // resetValues();
+    router.push(`/meetups`); //TODO why doesnt it redirect?
   };
+
+  // function resetValues() {
+  //   setDate(undefined);
+  //   setCity("");
+  //   setLanguage("");
+  //   setDescription("");
+  //   setLocation("");
+  // }
 
   return (
     <div className={classes.body}>
@@ -91,7 +98,6 @@ export default function MultilineTextFields() {
                 label="Date and time"
                 value={date}
                 onChange={(newValue) => {
-                  console.log("new value", newValue);
                   setDate(newValue!);
                 }}
               />

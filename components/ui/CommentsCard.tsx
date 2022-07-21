@@ -6,45 +6,40 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { Comment, Prisma } from "@prisma/client";
 import moment from "moment";
-import { ObjectId } from "mongodb";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { CommentDocument } from "../../database/paprModels";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import classes from "./CommentsCard.module.css";
-import CustomButton, { CustomButtonDisabled } from "./CustomButton";
+import CustomButton from "./CustomButton";
 
-function CommentsCard({ comments }: { comments: CommentDocument[] }) {
+function CommentsCard({ comments }: { comments: Comment[] }) {
   const router = useRouter();
   const { MeetupId } = router.query;
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
-  //console.log(comments.length);
+  const [dateDiff, setDateDiff] = useState(0);
 
-  //   useEffect(() => {
-  //     comments.map((comment) => {
-  //       const y = moment(comment.date).format("YYYY-MM-DD");
-  //       const diff = moment(Date.now()).diff(y, "days");
-  //       console.log("diff in days", diff);
-  //     });
-  //   });
+  useEffect(() => {
+    comments.map((comment) => {
+      const commentDate = moment(comment.date).format("YYYY-MM-DD");
+      setDateDiff(moment(Date.now()).diff(commentDate, "days"));
+    });
+  });
 
-  const onNameChange = (e: any) => {
+  const onNameChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setName(e.target.value);
   };
 
-  const onCommentChange = (e: any) => {
+  const onCommentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
   };
 
   const addCommentHandler = async () => {
-    console.log("adding");
-    const commentData = {
-      //_id: new string,
-      date: new Date(Date.now()),
+    const commentData: Prisma.CommentCreateInput = {
       name: name,
       comment: comment,
-      meetupId: MeetupId! as string,
+      meetupId: parseInt(MeetupId! as string),
     };
 
     const data = await fetch("/api/new-comment", {
@@ -85,7 +80,7 @@ function CommentsCard({ comments }: { comments: CommentDocument[] }) {
                     {comment.comment}
                   </span>
                   <span className={classes.commentDate}>
-                    {/* {comment.written} day(s) ago. */}x day(s) ago.
+                    {dateDiff} day(s) ago.
                   </span>
                 </div>
               ))}
@@ -93,7 +88,6 @@ function CommentsCard({ comments }: { comments: CommentDocument[] }) {
             <div className={classes.commentsCard}>
               <TextField
                 fullWidth
-                //id="standard-multiline-static"
                 label="Name"
                 rows={1}
                 //defaultValue={name}
@@ -103,11 +97,9 @@ function CommentsCard({ comments }: { comments: CommentDocument[] }) {
               />
               <TextField
                 fullWidth
-                //id="standard-multiline-static"
                 label="Comment"
                 multiline
                 rows={3}
-                //defaultValue={comment}
                 variant="filled"
                 onChange={onCommentChange}
                 value={comment}

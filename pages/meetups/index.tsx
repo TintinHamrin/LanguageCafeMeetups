@@ -5,13 +5,11 @@ import moment from "moment";
 import { Meetup, PrismaClient } from "@prisma/client";
 
 export default function Index({ meetups }: { meetups: string[] }) {
-  //TODO fix to also include today meetup
   const filteredByDate = meetups
     .map((m) => JSON.parse(m) as Meetup)
     .filter((meetup) => {
       const today = moment(Date.now()).format("YYYY-MM-DD");
-      return moment(Date.now()).isAfter(meetup.date);
-      //TODO change to isBefore
+      return moment(Date.now()).isSameOrBefore(meetup.date);
     });
 
   return (
@@ -27,9 +25,8 @@ export default function Index({ meetups }: { meetups: string[] }) {
 
 export async function getStaticProps() {
   const prisma = new PrismaClient();
-
   const res = await prisma.meetup.findMany();
-  console.log("from gsp", res);
+  //const comments = await prisma.comment.findMany();
   prisma.$disconnect();
 
   return {

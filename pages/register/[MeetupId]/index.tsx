@@ -6,8 +6,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { Attendee } from "@prisma/client";
 import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import CustomButton from "../../../components/ui/CustomButton";
 import { getAttendees } from "../../../store/attendingSlice";
@@ -20,45 +21,52 @@ export default function index() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [mail, setMail] = useState("");
-  console.log("mid", MeetupId);
+  // console.log("mid", MeetupId);
 
-  const handleNameChange = (event: any) => {
+  const handleNameChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setName(event.target.value);
   };
 
-  const handlePhoneChange = (event: any) => {
+  const handlePhoneChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setPhone(event.target.value);
   };
 
-  const handleMailChange = (event: any) => {
+  const handleMailChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setMail(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const data = {
       name: name,
       phone: phone,
       mail: mail,
-      meetingId: router.query.RegisterId,
+      meetingId: router.query.MeetupId! as string,
     };
     //dispatch(getAttendees(data.name));
-    saveToDb(data);
-    router.push(`/meetup/${MeetupId}`);
-  };
-
-  const saveToDb = async (data: any) => {
-    console.log("saving data");
-    console.log(data);
-    const x = await fetch("/api/register", {
+    const res = await fetch("/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
-    const result = await x.json();
-    console.log(result);
+    const result = await res.json();
+    router.push(`/meetup/${MeetupId}`);
   };
+
+  // const saveToDb = async (data: Attendee) => {
+  //   console.log("saving data");
+  //   console.log(data);
+  //   const x = await fetch("/api/register", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(data),
+  //   });
+  //   const result = await x.json();
+  //   console.log(result);
+  // };
 
   return (
     <div className={classes.body}>
@@ -77,19 +85,25 @@ export default function index() {
               fullWidth
               id="outlined-textarea"
               label="First and last name"
-              onChange={(event) => handleNameChange(event)}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
+                handleNameChange(event)
+              }
             />
             <TextField
               fullWidth
               id="outlined-multiline-static"
               label="Phone number"
-              onChange={(event) => handlePhoneChange(event)}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
+                handlePhoneChange(event)
+              }
             />
             <TextField
               fullWidth
               id="outlined-multiline-static"
               label="Email"
-              onChange={(event) => handleMailChange(event)}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
+                handleMailChange(event)
+              }
             />
             <CustomButton onClick={handleSubmit}>Submit</CustomButton>
           </Box>

@@ -10,12 +10,6 @@ import React, { useEffect, useState } from "react";
 import CustomButton, { CustomButtonDisabled } from "./CustomButton";
 import classes from "./MeetupCard-Fullpage.module.css";
 import Moment from "moment";
-import CommentsCard from "./CommentsCard";
-import {
-  CommentDocument,
-  MeetupDocument,
-  RegisteredDocument,
-} from "../../database/paprModels";
 import { Attendee, Comment, Meetup } from "@prisma/client";
 
 export default function MeetupCardFullpage({
@@ -24,8 +18,8 @@ export default function MeetupCardFullpage({
   attendees,
 }: {
   meetup: Meetup;
-  comments: Comment;
-  attendees: Attendee;
+  comments: Comment[];
+  attendees: Attendee[];
 }) {
   const [formattedString, setFormattedString] = useState("");
   const router = useRouter();
@@ -33,11 +27,10 @@ export default function MeetupCardFullpage({
     router.push(`/register/${meetup.id}`);
   };
 
-  // useEffect(() => {
-  //   const date = new Date(meetup.date);
-  //   setFormattedString(Moment(date).format("DD-MM-YYYY HH:MM"));
-  //   //console.log(meetup.comments[0]);
-  // }, []);
+  useEffect(() => {
+    const date = new Date(meetup.date);
+    setFormattedString(Moment(date).format("DD-MM-YYYY HH:MM"));
+  }, []);
 
   return (
     <div className={classes.body}>
@@ -49,7 +42,7 @@ export default function MeetupCardFullpage({
             </Typography>
 
             <CustomButtonDisabled className={classes.attending}>
-              Attending: x
+              Attending: {attendees.length}
             </CustomButtonDisabled>
           </div>
           <Divider></Divider>

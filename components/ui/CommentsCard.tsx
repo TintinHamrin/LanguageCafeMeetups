@@ -19,7 +19,7 @@ function CommentsCard({ comments }: { comments: CommentDocument[] }) {
   const { MeetupId } = router.query;
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
-  console.log(comments.length);
+  //console.log(comments.length);
 
   //   useEffect(() => {
   //     comments.map((comment) => {

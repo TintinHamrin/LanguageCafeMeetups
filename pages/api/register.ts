@@ -1,18 +1,23 @@
-import mongoose from "mongoose";
-import connect from "../../database/connection";
-import Register from "../../database/models/registering";
+import { PrismaClient } from "@prisma/client";
+import { NextApiRequest, NextApiResponse } from "next/types";
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method === "POST") {
-    connect();
     const data = req.body;
     const { name, phone, mail, meetingId } = data;
 
-    const dbEntry = await Register.create({
-      name: name,
-      phone: phone,
-      mail: mail,
-      meetingId: meetingId,
+    const prisma = new PrismaClient();
+
+    const dbEntry = await prisma.attendee.create({
+      data: {
+        name: name,
+        phone: phone,
+        mail: mail,
+        meetingId: parseInt(meetingId),
+      },
     });
 
     res.status(200).send({ msg: dbEntry });

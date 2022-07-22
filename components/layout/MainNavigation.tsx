@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import EmojiFlagsIcon from "@mui/icons-material/EmojiFlags";
 import classes from "./MainNavigation.module.css";
-import Link from "next/link";
+import LoginIcon from "@mui/icons-material/Login";
 import { useRouter } from "next/router";
 
 const MainNavigation = () => {
@@ -145,6 +145,9 @@ const MainNavigation = () => {
               onClose={handleCloseUserMenu}
             ></Menu>
           </Box>
+          <IconButton onClick={(evt) => routerHandler("login")}>
+            <LoginIcon></LoginIcon>
+          </IconButton>
         </Toolbar>
       </Container>
     </AppBar>

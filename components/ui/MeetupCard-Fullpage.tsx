@@ -61,7 +61,7 @@ export default function MeetupCardFullpage({
               Register
             </CustomButton>
           </CardActions>
-          <CommentsCard comments={comments} />
+          <CommentsCard comments={comments} meetupId={meetup.id} />
         </CardContent>
       </Card>
     </div>

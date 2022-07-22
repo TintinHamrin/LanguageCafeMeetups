@@ -1,21 +1,16 @@
 import * as React from "react";
 import MeetupCard from "../../components/ui/MeetupCard";
 import MeetupBox from "../../components/ui/MeetupBox";
-import moment from "moment";
 import { Meetup, PrismaClient } from "@prisma/client";
+import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 
 export default function Index({ meetups }: { meetups: string[] }) {
-  const filteredByDate = meetups
-    .map((m) => JSON.parse(m) as Meetup)
-    .filter((meetup) => {
-      const today = moment(Date.now()).format("YYYY-MM-DD");
-      return moment(Date.now()).isSameOrBefore(meetup.date);
-    });
+  const parsedMeetups = meetups.map((m) => JSON.parse(m) as Meetup);
 
   return (
     <>
       <MeetupBox city="NYC, Colorado and Miami">
-        {filteredByDate.map((meetup) => (
+        {parsedMeetups.map((meetup) => (
           <MeetupCard meetup={meetup} />
         ))}
       </MeetupBox>
@@ -24,10 +19,17 @@ export default function Index({ meetups }: { meetups: string[] }) {
 }
 
 export async function getStaticProps() {
+  setCookie("test", "value");
+  getCookie("test");
+
   const prisma = new PrismaClient();
-  const res = await prisma.meetup.findMany();
-  //const comments = await prisma.comment.findMany();
-  prisma.$disconnect();
+  const res = await prisma.meetup.findMany({
+    where: {
+      date: {
+        gte: new Date(),
+      },
+    },
+  });
 
   return {
     props: {

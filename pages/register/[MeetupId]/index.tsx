@@ -1,21 +1,11 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { Attendee, Prisma } from "@prisma/client";
+import { Box, Card, CardContent, TextField, Typography } from "@mui/material";
+import { Prisma } from "@prisma/client";
 import { useRouter } from "next/router";
-import React, { ChangeEvent, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { ChangeEvent, useState } from "react";
 import CustomButton from "../../../components/ui/CustomButton";
-import { getAttendees } from "../../../store/attendingSlice";
 import classes from "./index.module.css";
 
 export default function index() {
-  //const dispatch = useDispatch();
   const router = useRouter();
   const { MeetupId } = router.query;
   const [name, setName] = useState("");
@@ -41,7 +31,6 @@ export default function index() {
       mail: mail,
       meetingId: parseInt(router.query.MeetupId! as string),
     };
-    //dispatch(getAttendees(data.name));
     const res = await fetch("/api/register", {
       method: "POST",
       headers: {

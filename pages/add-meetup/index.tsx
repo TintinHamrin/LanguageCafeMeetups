@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { useRouter } from "next/router";
 import { ChangeEvent } from "react";
@@ -26,8 +25,8 @@ export default function MultilineTextFields() {
   const [description, setDescription] = React.useState("");
   const [language, setLanguage] = React.useState("");
   const [city, setCity] = React.useState("");
-  const [date, setDate] = React.useState<Date>(); //TODO why possibly undefined?
-
+  const [date, setDate] = React.useState<Date>(new Date());
+  ("");
   const handleLocationChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -54,7 +53,7 @@ export default function MultilineTextFields() {
       description: description,
       language: language,
       city: city,
-      date: date!,
+      date: date,
     };
     const data = await fetch("/api/new-meetup", {
       method: "POST",
@@ -63,19 +62,9 @@ export default function MultilineTextFields() {
       },
       body: JSON.stringify(meetupData),
     });
-    const result = await data.json(); //TODO should i have this line??
-
-    // resetValues();
-    router.push(`/meetups`); //TODO why doesnt it redirect?
+    const result = await data.json(); // change to check that res is ok
+    router.push(`/meetups`);
   };
-
-  // function resetValues() {
-  //   setDate(undefined);
-  //   setCity("");
-  //   setLanguage("");
-  //   setDescription("");
-  //   setLocation("");
-  // }
 
   return (
     <div className={classes.body}>

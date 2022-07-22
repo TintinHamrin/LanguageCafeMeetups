@@ -1,4 +1,5 @@
 import { Attendee, Meetup, Comment, PrismaClient } from "@prisma/client";
+import { GetStaticPropsContext } from "next/types";
 import React from "react";
 import MeetupCardFullpage from "../../../components/ui/MeetupCard-Fullpage";
 
@@ -37,15 +38,14 @@ export async function getStaticPaths() {
   };
 }
 
-// TODO fix type for context
-export async function getStaticProps(context: any) {
-  const param = context.params.MeetupId;
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const param = context.params!.MeetupId as string;
 
   const prisma = new PrismaClient();
 
   const meetup = await prisma.meetup.findUnique({
     where: {
-      id: parseInt(param),
+      id: parseInt(param!),
     },
   });
   const attendees = await prisma.attendee.findMany({

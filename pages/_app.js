@@ -3,6 +3,7 @@ import Layout from "../components/layout/Layout";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Provider } from "react-redux";
 import { store } from "../store/configStore";
+import { SessionProvider } from "next-auth/react";
 
 const theme = createTheme({
   palette: {
@@ -29,14 +30,16 @@ const theme = createTheme({
   },
 });
 
-export default function App({ Component, pageProps, props }) {
+export default function App({ Component, pageProps, props, session }) {
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <Layout p={props}>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
+      <SessionProvider session={session}>
+        <ThemeProvider theme={theme}>
+          <Layout p={props}>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </SessionProvider>
     </Provider>
   );
 }

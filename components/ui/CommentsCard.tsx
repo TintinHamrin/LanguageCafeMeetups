@@ -13,9 +13,14 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import classes from "./CommentsCard.module.css";
 import CustomButton from "./CustomButton";
 
-function CommentsCard({ comments }: { comments: Comment[] }) {
+function CommentsCard({
+  comments,
+  meetupId,
+}: {
+  comments: Comment[];
+  meetupId: number;
+}) {
   const router = useRouter();
-  const { MeetupId } = router.query;
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
   const [dateDiff, setDateDiff] = useState(0);
@@ -39,7 +44,7 @@ function CommentsCard({ comments }: { comments: Comment[] }) {
     const commentData: Prisma.CommentCreateInput = {
       name: name,
       comment: comment,
-      meetupId: parseInt(MeetupId! as string),
+      meetupId: meetupId,
     };
 
     const data = await fetch("/api/new-comment", {
@@ -58,7 +63,7 @@ function CommentsCard({ comments }: { comments: Comment[] }) {
   const updateCommentsSection = () => {
     setName("");
     setComment("");
-    router.push(`/meetup/${MeetupId}`);
+    router.push(`/meetup/${meetupId}`);
   };
 
   return (

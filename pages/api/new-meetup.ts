@@ -6,30 +6,24 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    //await connect();
+    //check up
     const data = req.body;
     const { location, description, language, city, date } = data;
-    console.log("data", location, description, language, city);
+    console.log({ location, description, language, city });
 
     const prisma = new PrismaClient();
-    try {
-      const meetup = await prisma.meetup.create({
-        data: {
-          location: location,
-          description: description,
-          language: language,
-          city: city,
-          date: date,
-        },
-      });
-      console.log({ meetup });
-    } catch (error) {
-      console.error(error);
-      throw error;
-    } finally {
-      await prisma.$disconnect();
-    }
 
-    res.status(200).send("ok");
+    const meetup = await prisma.meetup.create({
+      data: {
+        location,
+        description,
+        language,
+        city,
+        date,
+      },
+    });
+    console.log({ meetup });
+
+    res.json("ok");
   }
 }

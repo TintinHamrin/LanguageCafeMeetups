@@ -34,21 +34,22 @@ export default function BasicSelect() {
 
   return (
     <>
-      <Box className={classes.selectionDiv}>
-        <Typography variant="h5" textAlign="center">
-          Select your city
-        </Typography>
-        <FormControl className="classes.formControl">
-          <InputLabel>City</InputLabel>
-          <Select value={""} label="City" onChange={handleChange}>
-            <MenuItem value={"newyork"}>New York</MenuItem>
-            <MenuItem value={"miami"}>Miami</MenuItem>
-            <MenuItem value={"colorado"}>Colorado</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
+      <Box className={classes.selectionDiv}></Box>
 
       <div id="id" className={classes.wrapper}>
+        <div className={classes.selectWrapper}>
+          <Typography variant="h5" textAlign="center">
+            Select your city
+          </Typography>
+          <FormControl className={classes.formControl}>
+            {/* <InputLabel className={classes.inputLabel}>City</InputLabel> */}
+            <Select value={""} label="City" onChange={handleChange}>
+              <MenuItem value={"newyork"}>New York</MenuItem>
+              <MenuItem value={"miami"}>Miami</MenuItem>
+              <MenuItem value={"colorado"}>Colorado</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
         <Box className={classes.boxDiv}>
           <Typography
             className={classes.textDiv}

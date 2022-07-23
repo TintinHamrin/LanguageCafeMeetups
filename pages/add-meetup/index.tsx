@@ -70,7 +70,6 @@ export default function MultilineTextFields() {
 
   if (!session?.user) {
     router.push(`/signin`);
-    return <div>Please log in</div>;
   }
 
   return (

@@ -1,0 +1,25 @@
+.wrapper {
+  background-image: url(/images/nyc.jpeg);
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  max-width: 50%;
+  max-height: 20%;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  background-color: bisque;
+}
+
+.button {
+  margin-top: 2rem;
+}

@@ -1,10 +1,10 @@
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import classes from "./signin.module.css";
 
-export default ({ email }: { email: string }) => (
-  <button
-    //onClick={() => signOut({ callbackUrl: "http://localhost:3000/meetups" })}
-    onClick={() => signOut({ redirect: false })}
-  >
-    Sign out with Email
-  </button>
-);
+export default () => {
+  return (
+    <div className={classes.wrapper}>
+      <button onClick={() => signOut()}>Sign out with Email</button>
+    </div>
+  );
+};

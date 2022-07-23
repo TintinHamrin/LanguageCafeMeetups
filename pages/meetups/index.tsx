@@ -2,7 +2,7 @@ import * as React from "react";
 import MeetupCard from "../../components/ui/MeetupCard";
 import MeetupBox from "../../components/ui/MeetupBox";
 import { Meetup, PrismaClient } from "@prisma/client";
-import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
+//import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 
 export default function Index({ meetups }: { meetups: string[] }) {
   const parsedMeetups = meetups.map((m) => JSON.parse(m) as Meetup);
@@ -19,9 +19,6 @@ export default function Index({ meetups }: { meetups: string[] }) {
 }
 
 export async function getStaticProps() {
-  setCookie("test", "value");
-  getCookie("test");
-
   const prisma = new PrismaClient();
   const res = await prisma.meetup.findMany({
     where: {

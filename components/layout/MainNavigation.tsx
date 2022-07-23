@@ -7,16 +7,19 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import EmojiFlagsIcon from "@mui/icons-material/EmojiFlags";
 import classes from "./MainNavigation.module.css";
 import LoginIcon from "@mui/icons-material/Login";
 import { useRouter } from "next/router";
+import { useSession, signIn } from "next-auth/react";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useSelector } from "react-redux";
 
 const MainNavigation = () => {
+  const { data: session } = useSession();
+  const isLoggedIn = useSelector((state: any) => state.isLoggedIn);
   const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -42,6 +45,22 @@ const MainNavigation = () => {
 
   const routerHandler = (path: string) => {
     router.push(`/${path}`);
+  };
+
+  const login = () => {
+    if (session?.user) {
+      console.log("logged in");
+    } else {
+      router.push(`/signin`);
+    }
+  };
+
+  const logout = () => {
+    if (session?.user) {
+      router.push(`/signout`);
+    } else {
+      console.log("already logged out");
+    }
   };
 
   return (
@@ -118,6 +137,7 @@ const MainNavigation = () => {
             >
               All Meetups
             </Button>
+
             <Button
               key={3}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -145,9 +165,26 @@ const MainNavigation = () => {
               onClose={handleCloseUserMenu}
             ></Menu>
           </Box>
-          <IconButton onClick={(evt) => routerHandler("login")}>
-            <LoginIcon></LoginIcon>
-          </IconButton>
+          {!session?.user && (
+            <IconButton onClick={login}>
+              <LoginIcon />
+            </IconButton>
+          )}
+          {session?.user && (
+            <IconButton onClick={logout}>
+              <LogoutIcon />
+            </IconButton>
+          )}
+          {/* {!isLoggedIn && (
+            <IconButton onClick={login}>
+              <LoginIcon />
+            </IconButton>
+          )}
+          {isLoggedIn && (
+            <IconButton onClick={logout}>
+              <LogoutIcon />
+            </IconButton>
+          )} */}
         </Toolbar>
       </Container>
     </AppBar>

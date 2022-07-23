@@ -18,8 +18,10 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { useRouter } from "next/router";
 import { ChangeEvent } from "react";
+import { useSession, signIn } from "next-auth/react";
 
 export default function MultilineTextFields() {
+  const { data: session } = useSession();
   const router = useRouter();
   const [location, setLocation] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -66,82 +68,89 @@ export default function MultilineTextFields() {
     router.push(`/meetups`);
   };
 
+  if (!session?.user) {
+    router.push(`/signin`);
+    return <div>Please log in</div>;
+  }
+
   return (
     <div className={classes.body}>
-      <Card className={classes.card}>
-        <CardContent>
-          <Box
-            className={classes.formWrapper}
-            component="form"
-            noValidate
-            autoComplete="off"
-          >
-            <Typography variant="h4" sx={{ mb: "15px" }}>
-              Add your language Meetup!
-            </Typography>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                renderInput={(props) => (
-                  <TextField className={classes.datePicker} {...props} />
-                )}
-                label="Date and time"
-                value={date}
-                onChange={(newValue) => {
-                  setDate(newValue!);
-                }}
+      {session?.user && (
+        <Card className={classes.card}>
+          <CardContent>
+            <Box
+              className={classes.formWrapper}
+              component="form"
+              noValidate
+              autoComplete="off"
+            >
+              <Typography variant="h4" sx={{ mb: "15px" }}>
+                Add your language Meetup!
+              </Typography>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                  renderInput={(props) => (
+                    <TextField className={classes.datePicker} {...props} />
+                  )}
+                  label="Date and time"
+                  value={date}
+                  onChange={(newValue) => {
+                    setDate(newValue!);
+                  }}
+                />
+              </LocalizationProvider>
+
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Language</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={language}
+                  label="Age"
+                  onChange={handleLanguageChange}
+                >
+                  <MenuItem value="Spanish">Spanish</MenuItem>
+                  <MenuItem value="French">French</MenuItem>
+                  <MenuItem value="Korean">Korean</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">City</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={city}
+                  label="Age"
+                  onChange={handleCityChange}
+                >
+                  <MenuItem value="New York">New York</MenuItem>
+                  <MenuItem value="Miami">Miami</MenuItem>
+                  <MenuItem value="Colorado">Colorado</MenuItem>
+                </Select>
+              </FormControl>
+              <TextField
+                fullWidth
+                id="outlined-textarea"
+                label="Location"
+                placeholder="Placeholder"
+                onChange={(event) => handleLocationChange(event)}
               />
-            </LocalizationProvider>
 
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Language</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={language}
-                label="Age"
-                onChange={handleLanguageChange}
-              >
-                <MenuItem value="Spanish">Spanish</MenuItem>
-                <MenuItem value="French">French</MenuItem>
-                <MenuItem value="Korean">Korean</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">City</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={city}
-                label="Age"
-                onChange={handleCityChange}
-              >
-                <MenuItem value="New York">New York</MenuItem>
-                <MenuItem value="Miami">Miami</MenuItem>
-                <MenuItem value="Colorado">Colorado</MenuItem>
-              </Select>
-            </FormControl>
-            <TextField
-              fullWidth
-              id="outlined-textarea"
-              label="Location"
-              placeholder="Placeholder"
-              onChange={(event) => handleLocationChange(event)}
-            />
-
-            <TextField
-              fullWidth
-              multiline
-              id="outlined-multiline-static"
-              label="Description"
-              onChange={(event) => handleDescriptionChange(event)}
-              rows={5}
-            />
-            <Button fullWidth variant="contained" onClick={onSubmitHandler}>
-              Submit
-            </Button>
-          </Box>
-        </CardContent>
-      </Card>
+              <TextField
+                fullWidth
+                multiline
+                id="outlined-multiline-static"
+                label="Description"
+                onChange={(event) => handleDescriptionChange(event)}
+                rows={5}
+              />
+              <Button fullWidth variant="contained" onClick={onSubmitHandler}>
+                Submit
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

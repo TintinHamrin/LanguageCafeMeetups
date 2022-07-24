@@ -1,25 +1,25 @@
-.wrapper {
-  background-image: url(/images/nyc.jpeg);
+.body {
+  background-image: url(/images/paris.jpeg);
   background-size: cover;
   height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 1rem;
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  max-width: 50%;
-  max-height: 20%;
-}
-
-.cardContent {
-  display: flex;
-  flex-direction: column;
-  background-color: bisque;
-}
-
-.button {
+  max-width: 600px;
   margin-top: 2rem;
+  background-color: rgba(248, 228, 221, 0.95);
+}
+
+.textField {
+  width: 100%;
 }

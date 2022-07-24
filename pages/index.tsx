@@ -4,7 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { Typography } from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 import classes from "./index.module.css";
 import { useRouter } from "next/router";
 
@@ -37,19 +37,22 @@ export default function BasicSelect() {
       <Box className={classes.selectionDiv}></Box>
 
       <div id="id" className={classes.wrapper}>
-        <div className={classes.selectWrapper}>
-          <Typography variant="h5" textAlign="center">
-            Select your city
-          </Typography>
-          <FormControl className={classes.formControl}>
-            {/* <InputLabel className={classes.inputLabel}>City</InputLabel> */}
-            <Select value={""} label="City" onChange={handleChange}>
-              <MenuItem value={"newyork"}>New York</MenuItem>
-              <MenuItem value={"miami"}>Miami</MenuItem>
-              <MenuItem value={"colorado"}>Colorado</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
+        <Box className={classes.boxDiv}>
+          <div className={classes.x}>
+            <Typography variant="h5" textAlign="center">
+              Select your city
+            </Typography>
+            <FormControl className={classes.formControl}>
+              <InputLabel className={classes.inputLabel}>City</InputLabel>
+              <Select value={""} label="City" onChange={handleChange}>
+                <MenuItem value={"newyork"}>New York</MenuItem>
+                <MenuItem value={"miami"}>Miami</MenuItem>
+                <MenuItem value={"colorado"}>Colorado</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+        </Box>
+
         <Box className={classes.boxDiv}>
           <Typography
             className={classes.textDiv}

@@ -3,7 +3,13 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import classes from "./signin.module.css";
 import { useState } from "react";
-import { Card, CardContent } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+} from "@mui/material";
 
 export default function signin() {
   const [loginEmail, setLoginEmail] = useState("");
@@ -13,17 +19,29 @@ export default function signin() {
   };
 
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.body}>
       <Card className={classes.card}>
-        <CardContent className={classes.cardContent}>
-          <TextField
-            id="email"
-            label="Email"
-            variant="outlined"
-            onChange={onEmailChange}
-          />
-          <button
-            className={classes.button}
+        <CardContent>
+          <Box
+            className={classes.formWrapper}
+            component="form"
+            noValidate
+            autoComplete="off"
+          >
+            <Typography variant="h4" sx={{ mb: "15px" }}>
+              Sign in with Email
+            </Typography>
+            <TextField
+              className={classes.textField}
+              id="email"
+              label="Email"
+              variant="outlined"
+              onChange={onEmailChange}
+            />
+          </Box>
+        </CardContent>
+        <CardActions>
+          <Button
             onClick={() =>
               signIn("email", {
                 email: loginEmail,
@@ -32,8 +50,8 @@ export default function signin() {
             }
           >
             Sign in with Email
-          </button>
-        </CardContent>
+          </Button>
+        </CardActions>
       </Card>
     </div>
   );

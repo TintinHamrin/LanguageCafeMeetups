@@ -17,7 +17,7 @@
 .card {
   max-width: 600px;
   margin-top: 2rem;
-  background-color: rgba(248, 228, 221, 0.95);
+  /* background-color: rgba(248, 228, 221, 0.95); */
 }
 
 .datePicker {

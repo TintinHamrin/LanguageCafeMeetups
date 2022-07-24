@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin-top: 2rem; */
 }
 
 .selectionDiv > * {
@@ -13,16 +12,16 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  width: 100%;
 }
 
-.inputLabel {
-  color: white;
-  z-index: 1000;
+.x {
+  display: flex;
+  flex-direction: column;
+  background-color: #f5cac3;
+  padding: 2rem;
 }
 
 .formControl {
-  background-color: #eab676;
   opacity: 0.45;
 }
 
@@ -50,14 +49,12 @@
 }
 
 .wrapper:nth-child(2) {
-  /* margin-top: 2rem; */
   background-image: url(../public/images/paris2.jpeg);
   background-size: cover;
   background-attachment: fixed;
 }
 
 .wrapper:nth-child(3) {
-  /* background-image: url(../public/images/nyc.jpeg); */
   background-color: #f28482;
   background-size: cover;
   background-attachment: fixed;

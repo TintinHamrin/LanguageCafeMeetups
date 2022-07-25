@@ -68,9 +68,11 @@ export default function MultilineTextFields() {
     router.push(`/meetups`);
   };
 
-  if (!session?.user) {
-    router.push(`/signin`);
-  }
+  React.useEffect(() => {
+    if (!session?.user) {
+      router.push(`/signin`);
+    }
+  }, []);
 
   return (
     <div className={classes.body}>

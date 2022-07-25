@@ -24,5 +24,4 @@ export default NextAuth({
     signIn: "/signin",
     signOut: "/signout",
   },
-  secret: process.env.NEXTAUTH_URL,
 });

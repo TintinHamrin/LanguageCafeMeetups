@@ -21,21 +21,10 @@ export default index;
 
 // TODO necessary?
 export async function getStaticPaths() {
-  // return {
-  //   paths: [
-  //     {
-  //       params: {
-  //         MeetupId: "626f9adfc01edfa1c65dd1db",
-  //       },
-  //     },
-  //     {
-  //       params: {
-  //         MeetupId: "626f9cc8c01edfa1c65dd1e5",
-  //       },
-  //     },
-  //   ],
-  //   fallback: true,
-  // };
+  return {
+    paths: [],
+    fallback: true,
+  };
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {

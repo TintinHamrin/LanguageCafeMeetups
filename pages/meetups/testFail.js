@@ -16,7 +16,6 @@ Object.defineProperty(window, "TextDecoder", {
 const { TextEncoder, TextDecoder } = require("util");
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
-import mongoose from "mongoose";
 
 import Index from "./index";
 

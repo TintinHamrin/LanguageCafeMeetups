@@ -45,7 +45,7 @@ export default function signin() {
             onClick={() =>
               signIn("email", {
                 email: loginEmail,
-                callbackUrl: "/add-meetup",
+                // callbackUrl: "/",
               })
             }
           >

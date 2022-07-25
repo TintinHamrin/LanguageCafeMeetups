@@ -58,7 +58,7 @@ export default function MeetupCardFullpage({
               className={classes.registerButton}
               onClick={openRegisterHandler}
             >
-              Register
+              Register!
             </CustomButton>
           </CardActions>
           <CommentsCard comments={comments} meetupId={meetup.id} />

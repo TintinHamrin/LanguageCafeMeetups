@@ -1,5 +1,5 @@
-import { Button, ButtonClasses } from "@mui/material";
-import React, { FormEvent, MouseEventHandler, ReactNode } from "react";
+import { Button } from "@mui/material";
+import React, { MouseEventHandler, ReactNode } from "react";
 import classes from "./Button.module.css";
 
 type Props = {

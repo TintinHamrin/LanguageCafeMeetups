@@ -8,7 +8,7 @@ export const meetupSlice = createSlice({
   name: "attending",
   initialState,
   reducers: {
-    getAttendees(state, payload) {
+    getAttendees(state: any, payload: any) {
       state.attending.push(payload);
     },
   },

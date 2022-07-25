@@ -1,7 +1,5 @@
-import { ObjectId } from "mongodb";
-import mongoose from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next/types";
-import { Comment, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 export default async function handler(
   req: NextApiRequest,

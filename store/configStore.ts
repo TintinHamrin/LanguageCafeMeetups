@@ -4,6 +4,7 @@ import attendingReducer from "./attendingSlice";
 export const store = configureStore({
   reducer: {
     attending: attendingReducer,
+    //auth: authReducer
   },
 });
 

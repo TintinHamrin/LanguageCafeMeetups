@@ -19,7 +19,6 @@ import { useSelector } from "react-redux";
 
 const MainNavigation = () => {
   const { data: session } = useSession();
-  const isLoggedIn = useSelector((state: any) => state.isLoggedIn);
   const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -175,16 +174,6 @@ const MainNavigation = () => {
               <LogoutIcon />
             </IconButton>
           )}
-          {/* {!isLoggedIn && (
-            <IconButton onClick={login}>
-              <LoginIcon />
-            </IconButton>
-          )}
-          {isLoggedIn && (
-            <IconButton onClick={logout}>
-              <LogoutIcon />
-            </IconButton>
-          )} */}
         </Toolbar>
       </Container>
     </AppBar>

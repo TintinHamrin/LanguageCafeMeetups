@@ -34,5 +34,6 @@ export async function getStaticProps() {
         return JSON.stringify(meetup);
       }),
     },
+    revalidate: 10,
   };
 }

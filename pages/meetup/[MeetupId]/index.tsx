@@ -59,7 +59,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     attendees: attendees,
     comments: comments,
   };
-  prisma.$disconnect();
 
   return {
     props: {

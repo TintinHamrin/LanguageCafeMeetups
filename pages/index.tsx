@@ -40,7 +40,7 @@ export default function BasicSelect() {
         <Box className={classes.boxDiv}>
           <div className={classes.x}>
             <Typography variant="h5" textAlign="center">
-              Select your city
+              Select your city:
             </Typography>
             <FormControl className={classes.formControl}>
               <InputLabel className={classes.inputLabel}>City</InputLabel>

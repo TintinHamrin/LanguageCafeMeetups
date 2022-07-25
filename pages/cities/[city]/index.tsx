@@ -22,29 +22,29 @@ function City({ meetups }: { meetups: string[] }) {
 
 export default City;
 
-export async function getStaticPaths() {
-  return {
-    fallback: true,
-    paths: [
-      {
-        params: {
-          city: "miami",
-        },
-      },
-      {
-        params: {
-          city: "newyork",
-        },
-      },
+// export async function getStaticPaths() {
+//   return {
+//     fallback: true,
+//     paths: [
+//       {
+//         params: {
+//           city: "miami",
+//         },
+//       },
+//       {
+//         params: {
+//           city: "newyork",
+//         },
+//       },
 
-      {
-        params: {
-          city: "colorado",
-        },
-      },
-    ],
-  };
-}
+//       {
+//         params: {
+//           city: "colorado",
+//         },
+//       },
+//     ],
+//   };
+// }
 
 export async function getStaticProps(context: any) {
   let param = context.params.city;

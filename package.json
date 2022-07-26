@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "buildd": "perl -pi -e 's/sqlite/postgresql/g' prisma/schema.prisma && next build",
-    "build": "sed -i '' 's/sqlite/postgresql/g' prisma/schema.prisma && next build",
+    "build": "sed -i ' ' 's/sqlite/postgresql/' prisma/schema.prisma && next build",
     "start": "next start",
     "test": "jest"
   },

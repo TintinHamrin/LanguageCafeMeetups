@@ -64,7 +64,7 @@ export default function BasicSelect() {
             dolore pariatur expedita quod explicabo ipsam assumenda, asperiores
             accusamus nihil laborum mollitia impedit fugiat consequuntur odio
             magnam velit delectus sapiente quibusdam atque id vero repudiandae
-            architecto itaque!
+            architecto itaque
           </Typography>
         </Box>
       </div>

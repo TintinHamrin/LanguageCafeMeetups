@@ -33,7 +33,7 @@ export default () => {
           </Box>
         </CardContent>
         <CardActions>
-          <Button onClick={() => signOut()}>Sign out with Email</Button>
+          <Button onClick={() => signOut()}>Sign out with email</Button>
         </CardActions>
       </Card>
     </div>

@@ -75,7 +75,7 @@ function CommentsCard({
 
             <div className={classes.readComments}>
               {comments.length === 0 && (
-                <Typography variant="body2">No comments yet...</Typography>
+                <Typography variant="body2">No comments yet..</Typography>
               )}
 
               {comments.map((comment) => (

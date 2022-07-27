@@ -22,14 +22,7 @@ function City({ meetups }: { meetups: string[] }) {
 
 export default City;
 
-export async function getStaticPaths() {
-  return {
-    fallback: "blocking",
-    paths: [],
-  };
-}
-
-export async function getStaticProps(context: any) {
+export async function getServerSideProps(context: any) {
   let param = context.params.city;
   const capital = param[0].toUpperCase();
   param = capital.concat(param.slice(1));

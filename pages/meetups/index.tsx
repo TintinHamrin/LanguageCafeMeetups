@@ -18,7 +18,7 @@ export default function Index({ meetups }: { meetups: string[] }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const prisma = new PrismaClient();
   const res = await prisma.meetup.findMany({
     where: {
@@ -34,6 +34,5 @@ export async function getStaticProps() {
         return JSON.stringify(meetup);
       }),
     },
-    revalidate: 10,
   };
 }

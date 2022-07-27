@@ -1,16 +1,10 @@
 import { Attendee, Meetup, Comment, PrismaClient } from "@prisma/client";
-import { useRouter } from "next/router";
 import { GetStaticPropsContext } from "next/types";
 import React from "react";
 import MeetupCardFullpage from "../../../components/ui/MeetupCard-Fullpage";
 
 function index({ data }: { data: string }) {
-  //const router = useRouter();
   const deserializedData = JSON.parse(data);
-
-  // if (router.isFallback) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <>
@@ -25,15 +19,7 @@ function index({ data }: { data: string }) {
 
 export default index;
 
-// TODO necessary?
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-}
-
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getServerSideProps(context: GetStaticPropsContext) {
   const param = context.params!.MeetupId as string;
 
   const prisma = new PrismaClient();
@@ -64,6 +50,5 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     props: {
       data: JSON.stringify(data),
     },
-    revalidate: 10,
   };
 }

@@ -15,7 +15,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import { useRouter } from "next/router";
 import { useSession, signIn } from "next-auth/react";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useSelector } from "react-redux";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 
 const MainNavigation = () => {
   const { data: session } = useSession();
@@ -60,6 +60,10 @@ const MainNavigation = () => {
     } else {
       console.log("already logged out");
     }
+  };
+
+  const profileHandler = () => {
+    router.push(`/Profile`);
   };
 
   return (
@@ -170,9 +174,14 @@ const MainNavigation = () => {
             </IconButton>
           )}
           {session?.user && (
-            <IconButton onClick={logout}>
-              <LogoutIcon />
-            </IconButton>
+            <>
+              <IconButton onClick={profileHandler}>
+                <AccountBoxIcon />
+              </IconButton>
+              <IconButton onClick={logout}>
+                <LogoutIcon />
+              </IconButton>
+            </>
           )}
         </Toolbar>
       </Container>

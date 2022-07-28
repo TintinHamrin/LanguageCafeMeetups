@@ -1,10 +1,12 @@
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Card, CardContent, Tab, Tabs, Typography } from "@mui/material";
 import { Meetup, PrismaClient, User } from "@prisma/client";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { unstable_getServerSession } from "next-auth";
 import { getSession, useSession } from "next-auth/react";
 import React from "react";
 import classes from "./profile.module.css";
+import { authOptions } from "./api/auth/[...nextauth]";
 
 function Profile({ meetups }: { meetups: string[] }) {
   const y = meetups.map((m) => JSON.parse(m) as Meetup);
@@ -68,8 +70,18 @@ function Profile({ meetups }: { meetups: string[] }) {
 
 export default Profile;
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession(ctx);
+// export const getServerSideProps: GetServerSideProps = async (
+//   ctx: GetServerSidePropsContext
+// ) => {
+
+export async function getServerSideProps(context: any) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
+
+  //   const session = await getSession(ctx); //const session = await unstable_getServerSession(ctx.req, ctx.res, authOptions);
   console.log("sess", session?.h);
   const prisma = new PrismaClient();
   const meetups = await prisma.meetup.findMany({
@@ -90,4 +102,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       //meetups: meetups,
     },
   };
-};
+}

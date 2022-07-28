@@ -1,0 +1,17 @@
+.body {
+  background-image: url(/images/paris.jpeg);
+  height: 100vh;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 50%;
+  height: 50%;
+}
+
+.meetupCard {
+  cursor: pointer;
+}

@@ -8,7 +8,7 @@ export default async function handler(
   if (req.method === "POST") {
     //check up
     const data = req.body;
-    const { location, description, language, city, date } = data;
+    const { location, description, language, city, date, createdBy } = data;
     console.log({ location, description, language, city });
 
     const prisma = new PrismaClient();
@@ -20,6 +20,7 @@ export default async function handler(
         language,
         city,
         date,
+        createdBy,
       },
     });
     console.log({ meetup });

@@ -50,13 +50,16 @@ export default function MultilineTextFields() {
   };
 
   const onSubmitHandler = async () => {
+    //TODO type
     const meetupData = {
       location: location,
       description: description,
       language: language,
       city: city,
       date: date,
+      createdBy: session?.id,
     };
+    console.log(meetupData);
     const data = await fetch("/api/new-meetup", {
       method: "POST",
       headers: {

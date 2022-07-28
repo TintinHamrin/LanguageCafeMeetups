@@ -1,7 +1,8 @@
-import NextAuth from "next-auth";
+import NextAuth, { Awaitable, Session, User } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import EmailProvider from "next-auth/providers/email";
+import { JWT } from "next-auth/jwt";
 
 const prisma = new PrismaClient();
 
@@ -20,6 +21,16 @@ export default NextAuth({
       from: process.env.EMAIL_FROM,
     }),
   ],
+  callbacks: {
+    session: async ({ session, user }: { session: Session; user: User }) => {
+      session.id = user.id;
+      session.h = user.id;
+      return {
+        ...session,
+        user: user,
+      };
+    },
+  },
   pages: {
     signIn: "/signin",
     signOut: "/signout",

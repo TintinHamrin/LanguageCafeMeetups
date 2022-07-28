@@ -5,6 +5,7 @@ import { Meetup, PrismaClient } from "@prisma/client";
 //import { getCookies, getCookie, setCookie, deleteCookie } from "cookies-next";
 
 export default function Index({ meetups }: { meetups: string[] }) {
+  console.log(meetups);
   const parsedMeetups = meetups.map((m) => JSON.parse(m) as Meetup);
 
   return (

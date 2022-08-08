@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "buildd": "perl -pi -e 's/sqlite/postgresql/g' prisma/schema.prisma && next build",
-    "builddd": "sed -i ' ' 's/sqlite/postgresql/' prisma/schema.prisma && next build",
-    "build": "next build",
+    "build": "sed -i 's/sqlite/postgresql/' prisma/schema.prisma && npx prisma generate && next build",
     "start": "next start",
     "test": "jest"
   },

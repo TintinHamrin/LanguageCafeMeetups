@@ -41,8 +41,13 @@
   color: white;
 }
 
-.registerButton {
-  width: 80% !important;
+.buttonsDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonsDiv > button {
+  margin: 0.2rem;
 }
 
 @media (max-width: 500px) {
